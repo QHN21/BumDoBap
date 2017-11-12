@@ -1,4 +1,4 @@
-import Controller.AppController;
+import Controller.Controller;
 import Model.Model;
 import View.View;
 
@@ -17,7 +17,7 @@ public class StartApp {
     public static void main(String[] args) {
         Model model = new Model();
         View view = new View(model);
-        Controller.AppController appController = new Controller.AppController(view, model);
-        appController.start();
+        Controller Controller = new Controller(view, model);
+        Controller.start();
     }
 }

@@ -22,6 +22,7 @@ public class View extends Canvas {
     public View(Model model) {
         this.model = model;
         this.window = new Window(WIDTH, HEIGHT, "BumDoBap", this);
+        this.addKeyListener(new KeyInput());
     }
 
     public void render(){
@@ -35,6 +36,9 @@ public class View extends Canvas {
 
         g.setColor(Color.green);
         g.fillRect(0,0,WIDTH,HEIGHT);
+
+        model.render(g);
+
         g.dispose();
         bs.show();
     }

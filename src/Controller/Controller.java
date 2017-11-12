@@ -3,6 +3,8 @@ package Controller;
 import Model.Model;
 import View.View;
 
+import java.awt.*;
+
 /**
  * Class: Controller
  * Creator: Marcin Kuchenbecker
@@ -11,14 +13,14 @@ import View.View;
  * -creates Controller
  */
 
-public class AppController implements Runnable {
+public class Controller extends Canvas implements Runnable {
     private Model model;
     private View view;
 
     private Thread thread;
     private boolean running = false;
 
-    public AppController(View view, Model model) {
+    public Controller(View view, Model model) {
         this.view = view;
         this.model = model;
     }
@@ -55,12 +57,12 @@ public class AppController implements Runnable {
                 delta--;
             }
             if (running)
-                view.render();
+                render();
             frames++;
 
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
-                System.out.println("FPS: " + frames);
+                //System.out.println("FPS: " + frames);
                 frames = 0;
             }
         }
@@ -68,7 +70,11 @@ public class AppController implements Runnable {
     }
 
     private void tick() {
+        model.tick();
+    }
 
+    private void render() {
+        view.render();
     }
 
 }
