@@ -22,7 +22,7 @@ public class View extends Canvas {
     public View(Model model) {
         this.model = model;
         this.window = new Window(WIDTH, HEIGHT, "BumDoBap", this);
-        this.addKeyListener(new KeyInput());
+        this.addKeyListener(new KeyInput(model));
     }
 
     public void render(){

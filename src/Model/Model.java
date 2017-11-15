@@ -13,7 +13,7 @@ import java.util.LinkedList;
 public class Model {
     public Model() {
         createPlayer(100,100);
-        createPlayer(200,300);
+        createPlayer(200,100);
     }
     LinkedList<GameObject> objects = new LinkedList<GameObject>();
 
