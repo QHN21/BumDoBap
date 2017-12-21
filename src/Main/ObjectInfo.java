@@ -1,46 +1,33 @@
-package Model;
+package Main;
 
-import Main.ID;
-
-import java.awt.*;
-
-public class Player extends GameObject{
-
+public class ObjectInfo
+{
+    int x, y;
     boolean running;
     boolean jumping;
     boolean direction;
+    ID id;
 
-    int gravity;
-
-    public Player(int x, int y, ID id)
+    public ObjectInfo(int x, int y, ID id)
     {
-        super(x, y, id);
-        this.gravity = 1;
-        setVelX(0);
-        setVelY(0);
+        this.x = x;
+        this.y = y;
+        this.id = id;
     }
 
-    @Override
-    public void tick()
+    public int getX()
     {
-        velY =+ gravity;
+        return x;
     }
 
-    private void gravity()
+    public int getY()
     {
-
+        return y;
     }
-    public void jump()
-    {
 
-    }
-    public void shoot()
+    public ID getId()
     {
-
-    }
-    public void duck()
-    {
-
+        return id;
     }
 
     public void setRunning(boolean running)
@@ -67,4 +54,5 @@ public class Player extends GameObject{
     {
         return direction;
     }
+
 }
