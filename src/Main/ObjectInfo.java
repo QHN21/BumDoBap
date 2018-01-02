@@ -2,16 +2,18 @@ package Main;
 
 public class ObjectInfo
 {
-    int x, y;
-    boolean running;
-    boolean jumping;
-    boolean direction;
-    ID id;
+    private int x, y,width,height;
+    private boolean running;
+    private boolean jumping;
+    private boolean direction;
+    private ID id;
 
-    public ObjectInfo(int x, int y, ID id)
+    public ObjectInfo(int x, int y, int width, int height, ID id)
     {
         this.x = x;
         this.y = y;
+        this.width = width;
+        this.height = height;
         this.id = id;
     }
 
@@ -23,6 +25,16 @@ public class ObjectInfo
     public int getY()
     {
         return y;
+    }
+
+    public int getHeight()
+    {
+        return height;
+    }
+
+    public int getWidth()
+    {
+        return width;
     }
 
     public ID getId()

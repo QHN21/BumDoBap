@@ -14,31 +14,40 @@ import java.util.LinkedList;
  */
 public class Model
 {
-    private LinkedList<GameObject> players = new LinkedList<GameObject>();
-    private LinkedList<GameObject> bricks = new LinkedList<GameObject>();
-    private LinkedList<GameObject> bullets = new LinkedList<GameObject>();
+    public static final int SIZE = 16;
+
+    public LinkedList<GameObject> players = new LinkedList<GameObject>();
+    public LinkedList<GameObject> bricks = new LinkedList<GameObject>();
+    public LinkedList<GameObject> bullets = new LinkedList<GameObject>();
 
     public Model()
     {
-        addPlayer(new Player(100, 100, ID.Player1));
-        addPlayer(new Player(200, 300, ID.Player2));
+        addPlayer(new Player(0, 0, ID.Player1,this));
+        addPlayer(new Player(0, 0, ID.Player2,this));
+        for(int i = 0; i<6; i++)
+            addBrick(new Brick(SIZE*i,6*SIZE));
+        for(int i = 0; i<4; i++)
+            addBrick(new Brick(SIZE*6,6*SIZE-i*SIZE));
+        for(int i = 0; i<5; i++)
+            addBrick(new Brick(SIZE*6+SIZE*i,2*SIZE));
+        for(int i = 0; i<20; i++)
+            addBrick(new Brick(SIZE*i,9*SIZE));
     }
 
-    public void tick()
+    public void tick(boolean[][] keyDown)
     {
-        for (int i = 0; i < bullets.size(); i++)
-        {
-            GameObject tempObject = bullets.get(i);
-            tempObject.tick();
-        }
-
         for (int i = 0; i < players.size(); i++)
         {
-            GameObject tempObject = players.get(i);
+            Player tempObject = (Player)players.get(i);
+            tempObject.tick(keyDown[i]);
+        }
+
+        for (int i = 0; i < bullets.size(); i++)
+        {
+            Bullet tempObject = (Bullet)bullets.get(i);
             tempObject.tick();
         }
     }
-
 
     public void addPlayer(GameObject object)
     {
@@ -73,18 +82,31 @@ public class Model
         LinkedList<ObjectInfo> objectsInfo = new LinkedList<ObjectInfo>();
         for(int i = 0; i < players.size(); i++)
         {
-            Player tempPlayer = (Player)players.get(i);
-            ObjectInfo tempObjectInfo = new ObjectInfo(tempPlayer.getX(),tempPlayer.getY(),tempPlayer.getId());
-            tempObjectInfo.setRunning(tempPlayer.isRunning());
-            tempObjectInfo.setJumping(tempPlayer.isJumping());
-            tempObjectInfo.setDirection(tempPlayer.isDirection());
+            Player tempObject = (Player)players.get(i);
+            ObjectInfo tempObjectInfo =
+                    new ObjectInfo(tempObject.getX(),tempObject.getY(),
+                            tempObject.getWidth(), tempObject.getHeight(),
+                            tempObject.getId());
+            tempObjectInfo.setRunning(tempObject.isRunning());
+            tempObjectInfo.setJumping(tempObject.isJumping());
+            tempObjectInfo.setDirection(tempObject.isDirection());
 
             objectsInfo.add(tempObjectInfo);
         }
         for(int i = 0; i < bullets.size(); i++)
         {
-            GameObject tempBullet = bullets.get(i);
-            ObjectInfo tempObjectInfo = new ObjectInfo(tempBullet.getX(),tempBullet.getY(),tempBullet.getId());
+            GameObject tempObject = bullets.get(i);
+            ObjectInfo tempObjectInfo = new ObjectInfo(tempObject.getX(),tempObject.getY(),
+                    tempObject.getWidth(), tempObject.getHeight(),
+                    tempObject.getId());
+            objectsInfo.add(tempObjectInfo);
+        }
+        for(int i = 0; i < bricks.size(); i++)
+        {
+            GameObject tempObject = bricks.get(i);
+            ObjectInfo tempObjectInfo = new ObjectInfo(tempObject.getX(),tempObject.getY(),
+                    tempObject.getWidth(), tempObject.getHeight(),
+                    tempObject.getId());
             objectsInfo.add(tempObjectInfo);
         }
 

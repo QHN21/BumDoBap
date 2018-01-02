@@ -2,9 +2,11 @@ package Model;
 
 import Main.ID;
 
+import java.awt.*;
+
 public abstract class GameObject
 {
-    protected int x, y;
+    protected int x, y, width, height;
     protected ID id;
     protected int velX, velY;
 
@@ -15,8 +17,10 @@ public abstract class GameObject
         this.id = id;
     }
 
-    public abstract void tick();
-
+    public Rectangle getBounds()
+    {
+        return new Rectangle(x,y,width,height);
+    }
 
     public void setX(int x)
     {
@@ -36,6 +40,26 @@ public abstract class GameObject
     public int getY()
     {
         return y;
+    }
+
+    public void setHeight(int height)
+    {
+        this.height = height;
+    }
+
+    public void setWidth(int width)
+    {
+        this.width = width;
+    }
+
+    public int getHeight()
+    {
+        return height;
+    }
+
+    public int getWidth()
+    {
+        return width;
     }
 
     public void setId(ID id)

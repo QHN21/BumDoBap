@@ -19,18 +19,26 @@ import java.util.LinkedList;
 
 public class View extends Canvas
 {
-    private Model model;
     private Window window;
 
-    private static final int WIDTH = 640, HEIGHT = (WIDTH / 16) * 9;
+    public boolean[] keyDownP1 = new boolean[5];
+    public boolean[] keyDownP2 = new boolean[5];
+    public boolean[] keyDownP3 = new boolean[5];
+    public boolean[] keyDownP4 = new boolean[5];
 
-    public View(Model model)
+    private static final int WIDTH = 1024, HEIGHT = (WIDTH / 16) * 9;
+
+    public View()
     {
-        this.model = model;
         this.window = new Window(WIDTH, HEIGHT, "BumDoBap", this);
         this.addKeyListener(new KeyInput(this));
     }
 
+    public boolean[][] getKeys()
+    {
+        boolean[][] KeyDown = {keyDownP1,keyDownP2,keyDownP3,keyDownP4};
+        return KeyDown;
+    }
     public void render(LinkedList<ObjectInfo> objectsInfo)
     {
         BufferStrategy bs = this.getBufferStrategy();
@@ -67,27 +75,31 @@ public class View extends Canvas
     public void renderPlayer1(ObjectInfo objectInfo, Graphics g)
     {
         g.setColor(Color.white);
-        g.fillRect(objectInfo.getX(),objectInfo.getY(),32,32);
+        g.fillRect(objectInfo.getX(),objectInfo.getY(),objectInfo.getWidth(),objectInfo.getHeight());
     }
     public void renderPlayer2(ObjectInfo objectInfo, Graphics g)
     {
         g.setColor(Color.green);
-        g.fillRect(objectInfo.getX(),objectInfo.getY(),32,32);
+        g.fillRect(objectInfo.getX(),objectInfo.getY(),objectInfo.getWidth(),objectInfo.getHeight());
     }
     public void renderPlayer3(ObjectInfo objectInfo, Graphics g)
     {
-
+        g.setColor(Color.blue);
+        g.fillRect(objectInfo.getX(),objectInfo.getY(),objectInfo.getWidth(),objectInfo.getHeight());
     }
     public void renderPlayer4(ObjectInfo objectInfo, Graphics g)
     {
-
+        g.setColor(Color.pink);
+        g.fillRect(objectInfo.getX(),objectInfo.getY(),objectInfo.getWidth(),objectInfo.getHeight());
     }
     public void renderBullet(ObjectInfo objectInfo, Graphics g)
     {
-
+        g.setColor(Color.red);
+        g.fillRect(objectInfo.getX(),objectInfo.getY(),objectInfo.getWidth(),objectInfo.getHeight());
     }
     public void renderBrick(ObjectInfo objectInfo, Graphics g)
     {
-
+        g.setColor(Color.yellow);
+        g.fillRect(objectInfo.getX(),objectInfo.getY(),objectInfo.getWidth(),objectInfo.getHeight());
     }
 }

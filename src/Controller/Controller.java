@@ -83,7 +83,7 @@ public class Controller implements Runnable
 
     private void tick()
     {
-        model.tick();
+        model.tick(view.getKeys());
     }
 
     private void render()

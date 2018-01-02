@@ -18,7 +18,7 @@ import View.View;
 public class StartApp {
     public static void main(String[] args) {
         Model model = new Model();
-        View view = new View(model);
+        View view = new View();
         Controller Controller = new Controller(view, model);
         Controller.start();
     }

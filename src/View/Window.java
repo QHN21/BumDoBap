@@ -17,5 +17,7 @@ public class Window extends Canvas {
         frame.setLocationRelativeTo(null);
         frame.add(view);
         frame.setVisible(true);
+
+
     }
 }
