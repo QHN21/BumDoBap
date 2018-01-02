@@ -1,11 +1,7 @@
 package Controller;
 
-import Main.ObjectInfo;
 import Model.Model;
 import View.View;
-
-import java.awt.*;
-import java.util.LinkedList;
 
 /**
  * Class: Controller
@@ -34,7 +30,6 @@ public class Controller implements Runnable
         thread = new Thread(this);
         thread.start();
         running = true;
-        //run();
     }
 
     public void stop()
@@ -74,7 +69,7 @@ public class Controller implements Runnable
             if (System.currentTimeMillis() - timer > 1000)
             {
                 timer += 1000;
-                //System.out.println("FPS: " + frames);
+                System.out.println("FPS: " + frames);
                 frames = 0;
             }
         }

@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Window extends Canvas {
 
-    public Window(int width, int height, String title, View view) {
+    public Window(int width, int height, String title, MyCanvas myCanvas) {
         JFrame frame = new JFrame(title);
 
         frame.setPreferredSize(new Dimension(width, height));
@@ -13,9 +13,9 @@ public class Window extends Canvas {
         frame.setMinimumSize(new Dimension(width, height));
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.setLocationRelativeTo(null);
-        frame.add(view);
+        frame.add(myCanvas);
         frame.setVisible(true);
 
 
