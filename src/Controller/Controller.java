@@ -52,6 +52,7 @@ public class Controller implements Runnable
         double delta = 0;
         long timer = System.currentTimeMillis();
         int frames = 0;
+        model.createGame(2,1);
         while (running)
         {
             long now = System.nanoTime();

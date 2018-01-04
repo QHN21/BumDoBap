@@ -54,21 +54,38 @@ public class MyCanvas extends Canvas
     {
         g.setColor(Color.white);
         g.fillRect(objectInfo.getX(),objectInfo.getY(),objectInfo.getWidth(),objectInfo.getHeight());
+
+        g.setFont(new Font("Verdana", Font.PLAIN,8));
+        g.drawString("Player1",0,16);
+        g.drawString("Health: " + Integer.toString(objectInfo.getHealthPoints()),0,32);
+        g.drawString("Points: " + Integer.toString(objectInfo.getPoints()),0,48);
     }
     public void renderPlayer2(ObjectInfo objectInfo, Graphics g)
     {
         g.setColor(Color.green);
         g.fillRect(objectInfo.getX(),objectInfo.getY(),objectInfo.getWidth(),objectInfo.getHeight());
+        g.setFont(new Font("Verdana", Font.PLAIN,8));
+        g.drawString("Player2",WIDTH-100,16);
+        g.drawString("Health: " + Integer.toString(objectInfo.getHealthPoints()),WIDTH-100,32);
+        g.drawString("Points: " + Integer.toString(objectInfo.getPoints()),WIDTH-100,48);
     }
     public void renderPlayer3(ObjectInfo objectInfo, Graphics g)
     {
         g.setColor(Color.blue);
         g.fillRect(objectInfo.getX(),objectInfo.getY(),objectInfo.getWidth(),objectInfo.getHeight());
+        g.setFont(new Font("Verdana", Font.PLAIN,8));
+        g.drawString("Player3",0,HEIGHT-48);
+        g.drawString("Health: " + Integer.toString(objectInfo.getHealthPoints()),0,HEIGHT-32);
+        g.drawString("Points: " + Integer.toString(objectInfo.getPoints()),0,HEIGHT-16);
     }
     public void renderPlayer4(ObjectInfo objectInfo, Graphics g)
     {
         g.setColor(Color.pink);
         g.fillRect(objectInfo.getX(),objectInfo.getY(),objectInfo.getWidth(),objectInfo.getHeight());
+        g.setFont(new Font("Verdana", Font.PLAIN,8));
+        g.drawString("Player4",WIDTH-100,HEIGHT-48);
+        g.drawString("Health: " + Integer.toString(objectInfo.getHealthPoints()),WIDTH-100,HEIGHT-32);
+        g.drawString("Points: " + Integer.toString(objectInfo.getPoints()),WIDTH-100,HEIGHT - 16);
     }
     public void renderBullet(ObjectInfo objectInfo, Graphics g)
     {

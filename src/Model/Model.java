@@ -16,24 +16,23 @@ public class Model
 {
     public static final int SIZE = 16;
 
+    private MapCreator mapCreator;
+    private PlayerCreator playerCreator;
+
     public LinkedList<GameObject> players = new LinkedList<GameObject>();
     public LinkedList<GameObject> bricks = new LinkedList<GameObject>();
     public LinkedList<GameObject> bullets = new LinkedList<GameObject>();
 
     public Model()
     {
-        addPlayer(new Player(0, 0, ID.Player1,this));
-        addPlayer(new Player(0, 0, ID.Player2,this));
-        for(int i = 0; i<6; i++)
-            addBrick(new Brick(SIZE*i,6*SIZE));
-        for(int i = 0; i<4; i++)
-            addBrick(new Brick(SIZE*6,6*SIZE-i*SIZE));
-        for(int i = 0; i<5; i++)
-            addBrick(new Brick(SIZE*6+SIZE*i,2*SIZE));
-        for(int i = 0; i<20; i++)
-            addBrick(new Brick(SIZE*i,9*SIZE));
+        playerCreator = new PlayerCreator(this);
+        mapCreator = new MapCreator(this);
     }
-
+    public void createGame(int numberOfPlayers, int mapNumber)
+    {
+        playerCreator.createPlayers(numberOfPlayers);
+        mapCreator.createMap(mapNumber);
+    }
     public void tick(boolean[][] keyDown)
     {
         for (int i = 0; i < players.size(); i++)
@@ -58,9 +57,9 @@ public class Model
     {
         this.players.remove(object);
     }
-    public void addBrick(GameObject object)
+    public void addBrick(int x, int y)
     {
-        this.bricks.add(object);
+        this.bricks.add(new Brick(x,y));
     }
 
     public void removeBrick(GameObject object)
@@ -87,9 +86,8 @@ public class Model
                     new ObjectInfo(tempObject.getX(),tempObject.getY(),
                             tempObject.getWidth(), tempObject.getHeight(),
                             tempObject.getId());
-            tempObjectInfo.setRunning(tempObject.isRunning());
-            tempObjectInfo.setJumping(tempObject.isJumping());
-            tempObjectInfo.setDirection(tempObject.isDirection());
+            tempObjectInfo.setHealthPoints(tempObject.getHealthPoints());
+            tempObjectInfo.setPoints(tempObject.getPoints());
 
             objectsInfo.add(tempObjectInfo);
         }

@@ -8,18 +8,29 @@ public class Player extends GameObject{
 
     private Model model;
 
+    private int healthPoints;
+
+    private int points;
+    private int gravityTimer;
+    private int shootTimer;
+
+    private int respawnX;
+    private int respawnY;
+
     private boolean running;
     private boolean jumping;
     private boolean direction;
     private boolean ducking;
     private boolean shootEnabled;
 
-    private int gravityTimer;
-
     public Player(int x, int y, ID id, Model model) {
         super(x, y, id);
+        this.respawnX = x;
+        this.respawnY = y;
         this.width = Model.SIZE;
         this.height = Model.SIZE*2;
+        this.points = 0;
+        this.healthPoints = 3;
         this.gravityTimer =  0;
         this.model = model;
         setVelX(0);
@@ -75,6 +86,7 @@ public class Player extends GameObject{
         }
 
     }
+
     private void moveX() {
         x += velX;
         collisionX();
@@ -89,11 +101,13 @@ public class Player extends GameObject{
             if (getBounds().intersects(tempObject.getBounds())) {
                 if (this.getX() < tempObject.getX()) {
                     velX = 0;
-                    velY = 1;
+                    if(velY>1)
+                        velY = 1;
                     setX(tempObject.getX() - this.getWidth());
                 } else if (this.getX() > tempObject.getX()) {
                     velX = 0;
-                    velY = 1;
+                    if(velY>1)
+                        velY = 1;
                     setX(tempObject.getX() + tempObject.getWidth());
                 }
             }
@@ -113,6 +127,7 @@ public class Player extends GameObject{
             }
         }
     }
+
     private void gravity() {
        if(gravityTimer == 8)
        {
@@ -131,7 +146,7 @@ public class Player extends GameObject{
         }
     }
     private  void shoot() {
-        model.addBullet(new Bullet(x + width,y+height/4,isDirection(),model));
+        model.addBullet(new Bullet(x + width,y+height/4,isDirection(),this,model));
     }
     private void duck() {
         height = height/2;
@@ -143,8 +158,44 @@ public class Player extends GameObject{
         height = 2 * height;
         ducking = false;
     }
+
+    public void addPoints(){points += 100;}
+    public void gotHit(){
+        healthPoints--;
+        if(healthPoints == 0)
+        {
+            respawn();
+            healthPoints = 3;
+        }
+    }
+    private void respawn(){setX(respawnX); setY(respawnY);}
     private void timer() {
-        gravityTimer++;
+        gravityTimer++; shootTimer++;
+    }
+
+    public int getHealthPoints() {
+        return healthPoints;
+    }
+
+    public void setHealthPoints(int healthPoints) {
+        this.healthPoints = healthPoints;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public void setJumping(boolean jumping)
+    {
+        this.jumping = jumping;
+    }
+    boolean isJumping()
+    {
+        return jumping;
     }
     public void setRunning(boolean running)
     {
@@ -153,14 +204,6 @@ public class Player extends GameObject{
     boolean isRunning()
     {
         return running;
-    }
-    public void setJumping(boolean jumping)
-    {
-        this.jumping = jumping;
-    }
-    boolean isJumping()
-    {
-        return jumping;
     }
     public void setDirection(boolean direction)
     {

@@ -5,13 +5,15 @@ import Main.ID;
 public class Bullet extends GameObject
 {
     Model model;
+    Player player;
 
-    public Bullet(int x, int y,boolean direction,Model model)
+    public Bullet(int x, int y,boolean direction,Player player,Model model)
     {
         super(x, y, ID.Bullet);
 
         this.width = Model.SIZE/2;
         this.height = Model.SIZE/4;
+        this.player = player;
         this.model = model;
 
         if(direction) {
@@ -40,8 +42,10 @@ public class Bullet extends GameObject
         }
         //Bullet hits Player
         for (int i = 0; i < model.players.size(); i++) {
-            GameObject tempObject = model.players.get(i);
+            Player tempObject = (Player)model.players.get(i);
             if (getBounds().intersects(tempObject.getBounds())) {
+                player.addPoints();
+                tempObject.gotHit();
                 model.removeBullet(this);
             }
         }

@@ -2,10 +2,7 @@ package Main;
 
 public class ObjectInfo
 {
-    private int x, y,width,height;
-    private boolean running;
-    private boolean jumping;
-    private boolean direction;
+    private int x, y,width,height,healthPoints,points;
     private ID id;
 
     public ObjectInfo(int x, int y, int width, int height, ID id)
@@ -42,29 +39,19 @@ public class ObjectInfo
         return id;
     }
 
-    public void setRunning(boolean running)
-    {
-        this.running = running;
-    }
-    public boolean isRunning()
-    {
-        return running;
-    }
-    public void setJumping(boolean jumping)
-    {
-        this.jumping = jumping;
-    }
-    public boolean isJumping()
-    {
-        return jumping;
-    }
-    public void setDirection(boolean direction)
-    {
-        this.direction = direction;
-    }
-    public boolean isDirection()
-    {
-        return direction;
+    public int getPoints() {
+        return points;
     }
 
+    public int getHealthPoints(){
+        return healthPoints;
+    }
+
+    public void setHealthPoints(int healthPoints) {
+        this.healthPoints = healthPoints;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
 }

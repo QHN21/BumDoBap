@@ -30,7 +30,21 @@ public class KeyInput extends KeyAdapter
         if(key == KeyEvent.VK_DOWN) view.keyDownP2[1]=true;
         if(key == KeyEvent.VK_LEFT) view.keyDownP2[2]=true;
         if(key == KeyEvent.VK_RIGHT) view.keyDownP2[3]=true;
-        if(key == KeyEvent.VK_M) view.keyDownP2[4]=true;
+        if(key == KeyEvent.VK_SPACE) view.keyDownP2[4]=true;
+
+        //Player 3 Keys
+        if(key == KeyEvent.VK_T) view.keyDownP3[0]=true;
+        if(key == KeyEvent.VK_G) view.keyDownP3[1]=true;
+        if(key == KeyEvent.VK_F) view.keyDownP3[2]=true;
+        if(key == KeyEvent.VK_H) view.keyDownP3[3]=true;
+        if(key == KeyEvent.VK_V) view.keyDownP3[4]=true;
+
+        //Player 4 Keys
+        if(key == KeyEvent.VK_I) view.keyDownP4[0]=true;
+        if(key == KeyEvent.VK_K) view.keyDownP4[1]=true;
+        if(key == KeyEvent.VK_J) view.keyDownP4[2]=true;
+        if(key == KeyEvent.VK_L) view.keyDownP4[3]=true;
+        if(key == KeyEvent.VK_M) view.keyDownP4[4]=true;
     }
 
 
@@ -50,6 +64,20 @@ public class KeyInput extends KeyAdapter
         if(key == KeyEvent.VK_DOWN) view.keyDownP2[1]=false;
         if(key == KeyEvent.VK_LEFT) view.keyDownP2[2]=false;
         if(key == KeyEvent.VK_RIGHT) view.keyDownP2[3]=false;
-        if(key == KeyEvent.VK_M) view.keyDownP2[4]=false;
+        if(key == KeyEvent.VK_SPACE) view.keyDownP2[4]=false;
+
+        //Player 3 Keys
+        if(key == KeyEvent.VK_T) view.keyDownP3[0]=false;
+        if(key == KeyEvent.VK_G) view.keyDownP3[1]=false;
+        if(key == KeyEvent.VK_F) view.keyDownP3[2]=false;
+        if(key == KeyEvent.VK_H) view.keyDownP3[3]=false;
+        if(key == KeyEvent.VK_V) view.keyDownP3[4]=false;
+
+        //Player 4 Keys
+        if(key == KeyEvent.VK_I) view.keyDownP4[0]=false;
+        if(key == KeyEvent.VK_K) view.keyDownP4[1]=false;
+        if(key == KeyEvent.VK_J) view.keyDownP4[2]=false;
+        if(key == KeyEvent.VK_L) view.keyDownP4[3]=false;
+        if(key == KeyEvent.VK_M) view.keyDownP4[4]=false;
     }
 }

@@ -14,8 +14,9 @@ public class Window extends Canvas {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
+        frame.setLayout(new BorderLayout());
         frame.setLocationRelativeTo(null);
-        frame.add(myCanvas);
+        frame.add(myCanvas, BorderLayout.CENTER);
         frame.setVisible(true);
 
 
