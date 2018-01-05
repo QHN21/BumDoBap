@@ -3,7 +3,7 @@ package View;
 import javax.swing.JFrame;
 import java.awt.*;
 
-public class Window extends Canvas {
+public class Window {
 
     public Window(int width, int height, String title, MyCanvas myCanvas) {
         JFrame frame = new JFrame(title);

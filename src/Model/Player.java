@@ -102,13 +102,15 @@ public class Player extends GameObject{
             if (getBounds().intersects(tempObject.getBounds())) {
                 if (this.getX() < tempObject.getX()) {
                     velX = 0;
-                    if(velY>1)
+                    if(velY>0)
                         velY = 1;
+                        setJumping(false);
                     setX(tempObject.getX() - this.getWidth());
                 } else if (this.getX() > tempObject.getX()) {
                     velX = 0;
-                    if(velY>1)
+                    if(velY>0)
                         velY = 1;
+                        setJumping(false);
                     setX(tempObject.getX() + tempObject.getWidth());
                 }
             }
@@ -121,6 +123,7 @@ public class Player extends GameObject{
                 if (this.getY() < tempObject.getY()) {
                     velY = 0;
                     setY(tempObject.getY() - this.getHeight());
+                    setJumping(false);
                 } else if (this.getY() > tempObject.getY()) {
                     velY = 0;
                     setY(tempObject.getY() + tempObject.getHeight());
@@ -130,16 +133,16 @@ public class Player extends GameObject{
     }
 
     private void gravity() {
-       if(gravityTimer == 8)
+       if(gravityTimer == 128/Model.SIZE)
        {
            velY += 1;
-           if(velY == 1)
-               setJumping(false);
+           //if(velY == 1)
+           //    setJumping(false);
            gravityTimer = 0;
        }
     }
     private void jump() {
-        if(velY == 0 && !isJumping())
+        if(!isJumping())
         {
             velY=-Model.SIZE/4;
             setJumping(true);
@@ -160,7 +163,7 @@ public class Player extends GameObject{
         ducking = false;
     }
 
-    public void addPoints(){points += 100;}
+    public void addPoints(){points += 10;}
     public void gotHit(){
         healthPoints--;
         if(healthPoints == 0)

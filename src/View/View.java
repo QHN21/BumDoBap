@@ -22,7 +22,7 @@ public class View
     public boolean[] keyDownP3 = new boolean[5];
     public boolean[] keyDownP4 = new boolean[5];
 
-    private static final int WIDTH = 1248, HEIGHT = (WIDTH / 16) * 9;
+    private static final int WIDTH = 1024, HEIGHT = (WIDTH / 16) * 9;
 
     public View()
     {

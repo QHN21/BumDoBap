@@ -15,9 +15,9 @@ public class MapCreator {
     }
     public void createMap1(){
         createBounds();
-        createShelf(1,8,5);
-        createShelf(72,8,5);
-        createShelf(72, 33,5);
+        createShelf(1,5,3);
+        createColumn(6,1,5);
+
 
     }
     private void addBrick(int column, int row){
@@ -32,10 +32,10 @@ public class MapCreator {
             addBrick(column,i);
     }
     private void createBounds() {
-        createShelf(0,0,77);
-        createShelf(0,41,77);
-        createColumn(0,1,40);
-        createColumn(76,1,40);
+        createShelf(0,0,50);
+        createShelf(0,29,50);
+        createColumn(0,1,29);
+        createColumn(49,1,29);
         /*for(int i = 0; i<77; i++)
             addBrick(i,0);
         for(int i = 0; i<77; i++)
