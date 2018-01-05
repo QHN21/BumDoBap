@@ -3,7 +3,7 @@ package Main;
 public class ObjectInfo
 {
     private int x, y,width,height,healthPoints,points;
-    private ID id;
+    private ID id,bulletID;
 
     public ObjectInfo(int x, int y, int width, int height, ID id)
     {
@@ -53,5 +53,15 @@ public class ObjectInfo
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public ID getBulletID()
+    {
+        return bulletID;
+    }
+
+    public void setBulletID(ID bulletID)
+    {
+        this.bulletID = bulletID;
     }
 }

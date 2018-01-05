@@ -11,7 +11,7 @@ public class MyCanvas extends Canvas
 {
     Window window;
 
-    private static final int WIDTH = 1024, HEIGHT = (WIDTH / 16) * 9;
+    private static final int WIDTH = 78*16, HEIGHT = 44*16;
 
     public MyCanvas()
     {
@@ -42,59 +42,44 @@ public class MyCanvas extends Canvas
         for(int i = 0; i < objectsInfo.size(); i++)
         {
             ObjectInfo tempObjectInfo = objectsInfo.get(i);
-            if(tempObjectInfo.getId() == ID.Player1) renderPlayer1(tempObjectInfo, g);
-            else if(tempObjectInfo.getId() == ID.Player2) renderPlayer2(tempObjectInfo, g);
-            else if(tempObjectInfo.getId() == ID.Player3) renderPlayer3(tempObjectInfo, g);
-            else if(tempObjectInfo.getId() == ID.Player4) renderPlayer4(tempObjectInfo, g);
+            if(tempObjectInfo.getId() == ID.Player1) renderPlayer(tempObjectInfo, g, Color.yellow, "Player 1" , 32, 32 );
+            else if(tempObjectInfo.getId() == ID.Player2) renderPlayer(tempObjectInfo, g, Color.green, "Player 1" , WIDTH -100, 32 );
+            else if(tempObjectInfo.getId() == ID.Player3) renderPlayer(tempObjectInfo, g, Color.blue, "Player 1" , 32, HEIGHT - 100 );
+            else if(tempObjectInfo.getId() == ID.Player4) renderPlayer(tempObjectInfo, g, Color.pink, "Player 1" , WIDTH - 100, HEIGHT - 100 );
             else if(tempObjectInfo.getId() == ID.Bullet) renderBullet(tempObjectInfo, g);
             else if(tempObjectInfo.getId() == ID.Brick) renderBrick(tempObjectInfo, g);
         }
     }
-    public void renderPlayer1(ObjectInfo objectInfo, Graphics g)
+    public void renderPlayer(ObjectInfo objectInfo, Graphics g, Color color, String playerName, int hudX, int hudY )
     {
-        g.setColor(Color.white);
-        g.fillRect(objectInfo.getX(),objectInfo.getY(),objectInfo.getWidth(),objectInfo.getHeight());
-
-        g.setFont(new Font("Verdana", Font.PLAIN,8));
-        g.drawString("Player1",0,16);
-        g.drawString("Health: " + Integer.toString(objectInfo.getHealthPoints()),0,32);
-        g.drawString("Points: " + Integer.toString(objectInfo.getPoints()),0,48);
-    }
-    public void renderPlayer2(ObjectInfo objectInfo, Graphics g)
-    {
-        g.setColor(Color.green);
+        g.setColor(color);
         g.fillRect(objectInfo.getX(),objectInfo.getY(),objectInfo.getWidth(),objectInfo.getHeight());
         g.setFont(new Font("Verdana", Font.PLAIN,8));
-        g.drawString("Player2",WIDTH-100,16);
-        g.drawString("Health: " + Integer.toString(objectInfo.getHealthPoints()),WIDTH-100,32);
-        g.drawString("Points: " + Integer.toString(objectInfo.getPoints()),WIDTH-100,48);
-    }
-    public void renderPlayer3(ObjectInfo objectInfo, Graphics g)
-    {
-        g.setColor(Color.blue);
-        g.fillRect(objectInfo.getX(),objectInfo.getY(),objectInfo.getWidth(),objectInfo.getHeight());
-        g.setFont(new Font("Verdana", Font.PLAIN,8));
-        g.drawString("Player3",0,HEIGHT-48);
-        g.drawString("Health: " + Integer.toString(objectInfo.getHealthPoints()),0,HEIGHT-32);
-        g.drawString("Points: " + Integer.toString(objectInfo.getPoints()),0,HEIGHT-16);
-    }
-    public void renderPlayer4(ObjectInfo objectInfo, Graphics g)
-    {
-        g.setColor(Color.pink);
-        g.fillRect(objectInfo.getX(),objectInfo.getY(),objectInfo.getWidth(),objectInfo.getHeight());
-        g.setFont(new Font("Verdana", Font.PLAIN,8));
-        g.drawString("Player4",WIDTH-100,HEIGHT-48);
-        g.drawString("Health: " + Integer.toString(objectInfo.getHealthPoints()),WIDTH-100,HEIGHT-32);
-        g.drawString("Points: " + Integer.toString(objectInfo.getPoints()),WIDTH-100,HEIGHT - 16);
+        g.drawString(playerName, hudX, hudY);
+        g.drawString("Health: " + Integer.toString(objectInfo.getHealthPoints()), hudX, hudY + 16);
+        g.drawString("Points: " + Integer.toString(objectInfo.getPoints()), hudX, hudY + 32);
     }
     public void renderBullet(ObjectInfo objectInfo, Graphics g)
     {
-        g.setColor(Color.red);
+        switch (objectInfo.getBulletID()){
+            case Player1:
+                g.setColor(Color.yellow);
+                break;
+            case Player2:
+                g.setColor(Color.green);
+                break;
+            case Player3:
+                g.setColor(Color.blue);
+                break;
+            case Player4:
+                g.setColor(Color.pink);
+                break;
+        }
         g.fillRect(objectInfo.getX(),objectInfo.getY(),objectInfo.getWidth(),objectInfo.getHeight());
     }
     public void renderBrick(ObjectInfo objectInfo, Graphics g)
     {
-        g.setColor(Color.yellow);
+        g.setColor(Color.white);
         g.fillRect(objectInfo.getX(),objectInfo.getY(),objectInfo.getWidth(),objectInfo.getHeight());
     }
 }

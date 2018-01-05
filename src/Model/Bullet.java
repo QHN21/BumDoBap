@@ -6,6 +6,7 @@ public class Bullet extends GameObject
 {
     Model model;
     Player player;
+    ID bulletID;
 
     public Bullet(int x, int y,boolean direction,Player player,Model model)
     {
@@ -14,12 +15,13 @@ public class Bullet extends GameObject
         this.width = Model.SIZE/2;
         this.height = Model.SIZE/4;
         this.player = player;
+        this.bulletID = player.getId();
         this.model = model;
 
         if(direction) {
-            velX = 5;
+            velX = 20;
         }else {
-            velX = -5;
+            velX = -20;
             this.x = this.x - Model.SIZE - this.width;
         }
     }
@@ -49,5 +51,10 @@ public class Bullet extends GameObject
                 model.removeBullet(this);
             }
         }
+    }
+
+    public ID getBulletID()
+    {
+        return bulletID;
     }
 }

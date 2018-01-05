@@ -93,10 +93,11 @@ public class Model
         }
         for(int i = 0; i < bullets.size(); i++)
         {
-            GameObject tempObject = bullets.get(i);
+            Bullet tempObject = (Bullet)bullets.get(i);
             ObjectInfo tempObjectInfo = new ObjectInfo(tempObject.getX(),tempObject.getY(),
                     tempObject.getWidth(), tempObject.getHeight(),
                     tempObject.getId());
+            tempObjectInfo.setBulletID(tempObject.getBulletID());
             objectsInfo.add(tempObjectInfo);
         }
         for(int i = 0; i < bricks.size(); i++)

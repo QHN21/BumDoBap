@@ -79,8 +79,9 @@ public class Player extends GameObject{
         {
             shoot();
             shootEnabled = false;
+            shootTimer = 0;
         }
-        if (!keyDown[4])
+        if (!keyDown[4] && shootTimer > 15)
         {
             shootEnabled = true;
         }
