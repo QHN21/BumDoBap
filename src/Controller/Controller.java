@@ -17,7 +17,11 @@ public class Controller implements Runnable
     private View view;
 
     private Thread thread;
+
     private boolean running = false;
+    private boolean game = false;
+    private boolean pause = false;
+    private boolean exit = false;
 
     public Controller(View view, Model model)
     {
@@ -52,7 +56,7 @@ public class Controller implements Runnable
         double delta = 0;
         long timer = System.currentTimeMillis();
         int frames = 0;
-        model.createGame(2,1);
+        model.createGame(4,1);
         while (running)
         {
             long now = System.nanoTime();
@@ -60,6 +64,7 @@ public class Controller implements Runnable
             lastTime = now;
             while (delta >= 1)
             {
+                if(!pause)
                 tick();
                 delta--;
             }
@@ -87,5 +92,28 @@ public class Controller implements Runnable
         view.render(model.sendInfo());
     }
 
+    public boolean isPause() {
+        return pause;
+    }
+
+    public void setPause(boolean pause) {
+        this.pause = pause;
+    }
+
+    public boolean isGame() {
+        return game;
+    }
+
+    public void setGame(boolean game) {
+        this.game = game;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
 }
 

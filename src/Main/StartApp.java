@@ -19,7 +19,8 @@ public class StartApp {
     public static void main(String[] args) {
         Model model = new Model();
         View view = new View();
-        Controller Controller = new Controller(view, model);
-        Controller.start();
+        Controller controller = new Controller(view, model);
+        view.setController(controller);
+        controller.start();
     }
 }

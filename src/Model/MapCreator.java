@@ -18,8 +18,26 @@ public class MapCreator {
         createSpawns();
         createShelf(2,14,6);
         createShelf(44,14,6);
+
+        createShelf(14,11,6);
+        addBrick(19,10);
+
+        createShelf(14,17,6);
+        addBrick(19,16);
+
+        createShelf(32,11,6);
+        addBrick(32,10);
+
+        createShelf(32,17,6);
+        addBrick(32,16);
+
         createShelf(16,6,20);
+        addBrick(19,5);
+        addBrick(32,5);
+
         createShelf(16,22,20);
+        addBrick(19,21);
+        addBrick(32,21);
     }
     private void addBrick(int column, int row){
         model.addBrick(model.SIZE*(column-1),model.SIZE*(row-1));

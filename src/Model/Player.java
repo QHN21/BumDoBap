@@ -107,6 +107,8 @@ public class Player extends GameObject{
     }
     private void moveY() {
         y += velY;
+        if(velY > 1)
+            setJumping(true);
         collisionY();
     }
     private void collisionX() {

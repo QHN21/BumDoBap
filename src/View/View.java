@@ -1,5 +1,6 @@
 package View;
 
+import Controller.Controller;
 import Main.ObjectInfo;
 
 import java.util.LinkedList;
@@ -15,28 +16,40 @@ import java.util.LinkedList;
 
 public class View
 {
+    private Controller controller;
     private MyCanvas myCanvas;
-
-    public boolean[] keyDownP1 = new boolean[5];
-    public boolean[] keyDownP2 = new boolean[5];
-    public boolean[] keyDownP3 = new boolean[5];
-    public boolean[] keyDownP4 = new boolean[5];
-
-    private static final int WIDTH = 1024, HEIGHT = (WIDTH / 16) * 9;
+    private KeyInput keyInput;
 
     public View()
     {
-        this.myCanvas = new MyCanvas();
-        myCanvas.addKeyListener(new KeyInput(this));
+        this.myCanvas = new MyCanvas(16);
+        this.keyInput = new KeyInput(this);
+        myCanvas.addKeyListener(keyInput);
     }
 
-    public boolean[][] getKeys()
-    {
-        boolean[][] KeyDown = {keyDownP1,keyDownP2,keyDownP3,keyDownP4};
-        return KeyDown;
+    public boolean[][] getKeys(){
+        return keyInput.getKeys();
+    }
+
+
+    public void pause(){
+        controller.setPause(true);
+        myCanvas.setPause(true);
+    }
+    public void play(){
+        controller.setPause(false);
+        myCanvas.setPause(false);
     }
     public void render(LinkedList<ObjectInfo> objectsInfo)
     {
         myCanvas.render(objectsInfo);
+    }
+
+    public Controller getController() {
+        return controller;
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 }

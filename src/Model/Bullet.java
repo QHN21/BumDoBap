@@ -19,9 +19,9 @@ public class Bullet extends GameObject
         this.model = model;
 
         if(direction) {
-            velX = 20;
+            velX = 10;
         }else {
-            velX = -20;
+            velX = -10;
             this.x = this.x - Model.SIZE - this.width;
         }
     }
@@ -38,6 +38,7 @@ public class Bullet extends GameObject
         //Bullet hits Brick
         for (int i = 0; i < model.bricks.size(); i++) {
             GameObject tempObject = model.bricks.get(i);
+
             if (getBounds().intersects(tempObject.getBounds())) {
                 model.removeBullet(this);
             }

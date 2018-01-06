@@ -1,6 +1,6 @@
 package View;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.awt.*;
 
 public class Window {
@@ -17,6 +17,7 @@ public class Window {
         frame.setLayout(new BorderLayout());
         frame.setLocationRelativeTo(null);
         frame.add(myCanvas, BorderLayout.CENTER);
+
         frame.setVisible(true);
 
 
