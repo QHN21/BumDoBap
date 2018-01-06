@@ -13,7 +13,7 @@ public class Window {
         frame.setMinimumSize(new Dimension(width, height));
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(true);
+        frame.setResizable(false);
         frame.setLayout(new BorderLayout());
         frame.setLocationRelativeTo(null);
         frame.add(myCanvas, BorderLayout.CENTER);

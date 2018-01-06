@@ -46,8 +46,11 @@ public class Bullet extends GameObject
         for (int i = 0; i < model.players.size(); i++) {
             Player tempObject = (Player)model.players.get(i);
             if (getBounds().intersects(tempObject.getBounds())) {
-                player.addPoints();
-                tempObject.gotHit();
+                if(!tempObject.spawnProtection())
+                {
+                    player.addPoints();
+                    tempObject.gotHit();
+                }
                 model.removeBullet(this);
             }
         }

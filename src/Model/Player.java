@@ -9,10 +9,11 @@ public class Player extends GameObject{
     private Model model;
 
     private int healthPoints;
-
     private int points;
+
     private int gravityTimer;
     private int shootTimer;
+    private int spawnProtectionTimer;
 
     private int respawnX;
     private int respawnY;
@@ -21,6 +22,8 @@ public class Player extends GameObject{
     private boolean jumping;
     private boolean direction;
     private boolean ducking;
+    private boolean standing;
+    private boolean duckingEnabled;
     private boolean shootEnabled;
 
     public Player(int x, int y, ID id, Model model) {
@@ -32,6 +35,7 @@ public class Player extends GameObject{
         this.points = 0;
         this.healthPoints = 3;
         this.gravityTimer =  0;
+        this.duckingEnabled = true;
         this.model = model;
         setVelX(0);
         setVelY(0);
@@ -46,23 +50,32 @@ public class Player extends GameObject{
     }
 
     private void interpretKeys(boolean[] keyDown) {
-        if (keyDown[0]) {
+        if (keyDown[0] && !ducking) {
             jump();
         }
-        if (keyDown[1] && !ducking) {
-            duck();
-        }
-        if (!keyDown[1] && ducking) {
+        if (keyDown[0] && ducking) {
             standUp();
         }
+        if (keyDown[1] && (duckingEnabled && !ducking)) {
+            duck();
+        }
+        if(!keyDown[1] && (duckingEnabled && ducking)){
+            duckingEnabled = false;
+        }
+        if (keyDown[1] && (!duckingEnabled && ducking)) {
+            standUp();
+        }
+        if (!keyDown[1] && (!duckingEnabled && !ducking)) {
+            duckingEnabled = true;
+        }
         if (keyDown[2] && !keyDown[3]) {
-            velX = -Model.SIZE/8;
+            velX = -4;
             setDirection(false);
             if(!isJumping())
                 setRunning(true);
         }
         if (!keyDown[2] && keyDown[3]) {
-            velX = Model.SIZE/8;
+            velX = 4;
             setDirection(true);
             if(!isJumping())
                 setRunning(true);
@@ -81,7 +94,7 @@ public class Player extends GameObject{
             shootEnabled = false;
             shootTimer = 0;
         }
-        if (!keyDown[4] && shootTimer > 15)
+        if (!keyDown[4] && shootTimer > 5)
         {
             shootEnabled = true;
         }
@@ -133,18 +146,16 @@ public class Player extends GameObject{
     }
 
     private void gravity() {
-       if(gravityTimer == 128/Model.SIZE)
+       if(gravityTimer == 4)
        {
            velY += 1;
-           //if(velY == 1)
-           //    setJumping(false);
            gravityTimer = 0;
        }
     }
     private void jump() {
         if(!isJumping())
         {
-            velY=-Model.SIZE/4;
+            velY=-6;
             setJumping(true);
             gravityTimer = 0;
         }
@@ -169,12 +180,24 @@ public class Player extends GameObject{
         if(healthPoints == 0)
         {
             respawn();
-            healthPoints = 3;
         }
     }
-    private void respawn(){setX(respawnX); setY(respawnY);}
+    private void respawn(){
+        setX(respawnX);
+        setY(respawnY);
+        healthPoints = 3;
+        spawnProtectionTimer = 0;
+    }
     private void timer() {
-        gravityTimer++; shootTimer++;
+        gravityTimer++;
+        shootTimer++;
+        spawnProtectionTimer++;
+    }
+    public boolean spawnProtection(){
+        if(spawnProtectionTimer > 120)
+            return false;
+        else
+            return true;
     }
 
     public int getHealthPoints() {

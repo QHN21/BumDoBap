@@ -13,7 +13,7 @@ public class MyCanvas extends Canvas
     Window window;
     int Size = 16;
 
-    private int WIDTH = 51*Size, HEIGHT = 32*Size;
+    private int WIDTH = 51*Size, HEIGHT = 29*Size;
 
     public MyCanvas()
     {

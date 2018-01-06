@@ -15,13 +15,14 @@ public class MapCreator {
     }
     public void createMap1(){
         createBounds();
-        createShelf(1,5,3);
-        createColumn(6,1,5);
-
-
+        createSpawns();
+        createShelf(2,14,6);
+        createShelf(44,14,6);
+        createShelf(16,6,20);
+        createShelf(16,22,20);
     }
     private void addBrick(int column, int row){
-        model.addBrick(model.SIZE*column,model.SIZE*row);
+        model.addBrick(model.SIZE*(column-1),model.SIZE*(row-1));
     }
     private void createShelf(int column, int row, int width){
         for(int i = column; i < column + width; i++)
@@ -32,18 +33,20 @@ public class MapCreator {
             addBrick(column,i);
     }
     private void createBounds() {
-        createShelf(0,0,50);
-        createShelf(0,29,50);
-        createColumn(0,1,29);
-        createColumn(49,1,29);
-        /*for(int i = 0; i<77; i++)
-            addBrick(i,0);
-        for(int i = 0; i<77; i++)
-            addBrick(i,41);
-        for(int i = 1; i<41; i++)
-            addBrick(0,i);
-        for(int i = 1; i<41; i++)
-            addBrick(76,i);*/
+        createShelf(1,1,50);
+        createShelf(1,27,50);
+        createColumn(1,2,25);
+        createColumn(50,2,25);
+    }
+    private void createSpawns()  {
+        createShelf(2,6,3);
+        createShelf(47,6,3);
+        createShelf(2,22,3);
+        createShelf(47,22,3);
+        createColumn(7,2,5);
+        createColumn(44,2,5);
+        createColumn(7,22,5);
+        createColumn(44,22,5);
     }
 }
 
