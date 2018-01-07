@@ -16,12 +16,15 @@ public class Model
 {
     public static final int SIZE = 16;
 
+    public int timer;
+    boolean endGame;
+
     private MapCreator mapCreator;
     private PlayerCreator playerCreator;
 
-    public LinkedList<GameObject> players = new LinkedList<GameObject>();
-    public LinkedList<GameObject> bricks = new LinkedList<GameObject>();
-    public LinkedList<GameObject> bullets = new LinkedList<GameObject>();
+    public LinkedList<GameObject> players;
+    public LinkedList<GameObject> bricks;
+    public LinkedList<GameObject> bullets;
 
     public Model()
     {
@@ -30,8 +33,14 @@ public class Model
     }
     public void createGame(int numberOfPlayers, int mapNumber)
     {
+        players = new LinkedList<GameObject>();
+        bricks = new LinkedList<GameObject>();
+        bullets = new LinkedList<GameObject>();
         playerCreator.createPlayers(numberOfPlayers);
         mapCreator.createMap(mapNumber);
+        timer = 0;
+        endGame = false;
+
     }
     public void tick(boolean[][] keyDown)
     {
@@ -45,6 +54,10 @@ public class Model
         {
             Bullet tempObject = (Bullet)bullets.get(i);
             tempObject.tick();
+        }
+        timer++;
+        if(timer > 3600){
+            endGame = true;
         }
     }
 
@@ -110,5 +123,8 @@ public class Model
         }
 
         return objectsInfo;
+    }
+    public boolean isEndGame(){
+        return endGame;
     }
 }

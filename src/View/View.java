@@ -1,6 +1,7 @@
 package View;
 
 import Controller.Controller;
+import Main.GameState;
 import Main.ObjectInfo;
 
 import java.util.LinkedList;
@@ -19,36 +20,47 @@ public class View
     private Controller controller;
     private MyCanvas myCanvas;
     private KeyInput keyInput;
+    Menu menu;
 
     public View()
     {
-        this.myCanvas = new MyCanvas(16);
-        this.keyInput = new KeyInput(this);
+        this.menu =new Menu(this);
+        this.myCanvas = new MyCanvas(16,this, menu);
+        this.keyInput = new KeyInput(this, GameState.Menu,menu);
         myCanvas.addKeyListener(keyInput);
+    }
+
+    public void render(GameState gameState)
+    {
+        myCanvas.render(gameState);
     }
 
     public boolean[][] getKeys(){
         return keyInput.getKeys();
     }
 
+    public void changeGameState(GameState gameState){
+        menu.setGameState(gameState);
+        controller.setGameState(gameState);
+        keyInput.setGameState(gameState);
+    }
+    public void createGame(int numberOfPlayers){
+        controller.createGame(numberOfPlayers);
+    }
+    public void exit(){
+        controller.exit();
+        myCanvas.exit();
+    }
+    public void resize(int size){
+        this.myCanvas.resize(size);
+    }
+    public void getFinalPoints(){
 
-    public void pause(){
-        controller.setPause(true);
-        myCanvas.setPause(true);
-    }
-    public void play(){
-        controller.setPause(false);
-        myCanvas.setPause(false);
-    }
-    public void render(LinkedList<ObjectInfo> objectsInfo)
-    {
-        myCanvas.render(objectsInfo);
     }
 
-    public Controller getController() {
-        return controller;
+    public LinkedList<ObjectInfo> getObjectsInfo(){
+        return controller.getObjectsInfo();
     }
-
     public void setController(Controller controller) {
         this.controller = controller;
     }

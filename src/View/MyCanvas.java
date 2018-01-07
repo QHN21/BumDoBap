@@ -1,5 +1,6 @@
 package View;
 
+import Main.GameState;
 import Main.ID;
 import Main.ObjectInfo;
 
@@ -10,7 +11,11 @@ import java.util.LinkedList;
 
 public class MyCanvas extends Canvas
 {
+
+    View view;
     Window window;
+    Menu menu;
+    MenuRenderer menuRenderer;
     ObjectRenderer objectRenderer;
 
     private final int NORMAL_SIZE = 16;
@@ -19,18 +24,20 @@ public class MyCanvas extends Canvas
     private int width;
     private int height;
 
-    private boolean pause = false;
 
-    public MyCanvas(int size)
+    public MyCanvas(int size,View view,Menu menu)
     {
         this.size = size;
-        this.width = 51*size;
+        this.width = 52*size;
         this.height = 29*size;
+        this.view =view;
         this.window = new Window(width, height, "BumDoBap", this);
+        this.menu = menu;
+        this.menuRenderer = new MenuRenderer(view);
         this.objectRenderer = new ObjectRenderer(this.size,this.NORMAL_SIZE,this.width,this.height);
     }
 
-    public void render(LinkedList<ObjectInfo> objectsInfo)
+    public void render(GameState gameState)
     {
        BufferStrategy bs = this.getBufferStrategy();
         if (bs == null)
@@ -42,14 +49,22 @@ public class MyCanvas extends Canvas
         Graphics g = bs.getDrawGraphics();
         g.setColor(Color.gray);
         g.fillRect(0, 0, width, height);
-        objectRenderer.renderObjects(objectsInfo,g);
-        if(pause)
-            objectRenderer.renderPause(g);
+        if(gameState == GameState.Game)
+            objectRenderer.renderObjects(view.getObjectsInfo(),g);
+        else
+            menuRenderer.render(gameState,menu.getPosition(),g);
         g.dispose();
         bs.show();
     }
 
-    public void setPause(boolean pause) {
-        this.pause = pause;
+    public void resize(int size){
+        this.size = size;
+        this.width = 52*size;
+        this.height = 29*size;
+        this.window.resize(width, height);
+        this.objectRenderer.resize(size, width,height);
+    }
+    public void exit(){
+        window.close();
     }
 }

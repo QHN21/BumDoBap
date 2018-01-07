@@ -70,13 +70,13 @@ class ObjectRenderer {
                 scale(objectInfo.getWidth()),scale(objectInfo.getHeight()));
     }
 
-    public void renderPause(Graphics g){
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("Verdana", Font.PLAIN,scale(32)));
-        g.drawString("Pause", width/2-scale(56), height/2-scale(16));
-    }
-
     private int scale(int x){
         return (int)(x * this.size / this.normalSize);
+    }
+
+    public void resize(int size, int width, int height){
+        this.size = size;
+        this.width = width;
+        this.height = height;
     }
 }

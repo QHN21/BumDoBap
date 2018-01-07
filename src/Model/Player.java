@@ -22,7 +22,6 @@ public class Player extends GameObject{
     private boolean jumping;
     private boolean direction;
     private boolean ducking;
-    private boolean standing;
     private boolean duckingEnabled;
     private boolean shootEnabled;
 

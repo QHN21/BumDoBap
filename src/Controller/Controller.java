@@ -1,7 +1,11 @@
 package Controller;
 
+import Main.GameState;
+import Main.ObjectInfo;
 import Model.Model;
 import View.View;
+
+import java.util.LinkedList;
 
 /**
  * Class: Controller
@@ -19,14 +23,14 @@ public class Controller implements Runnable
     private Thread thread;
 
     private boolean running = false;
-    private boolean game = false;
-    private boolean pause = false;
-    private boolean exit = false;
+
+    GameState gameState;
 
     public Controller(View view, Model model)
     {
         this.view = view;
         this.model = model;
+        gameState = GameState.Menu;
     }
 
     public void start()
@@ -56,7 +60,6 @@ public class Controller implements Runnable
         double delta = 0;
         long timer = System.currentTimeMillis();
         int frames = 0;
-        model.createGame(4,1);
         while (running)
         {
             long now = System.nanoTime();
@@ -64,13 +67,14 @@ public class Controller implements Runnable
             lastTime = now;
             while (delta >= 1)
             {
-                if(!pause)
+                if(gameState == GameState.Game)
                 tick();
                 delta--;
+
+                if (running)
+                    render(gameState);
+                frames++;
             }
-            if (running)
-                render();
-            frames++;
 
             if (System.currentTimeMillis() - timer > 1000)
             {
@@ -78,6 +82,7 @@ public class Controller implements Runnable
                 System.out.println("FPS: " + frames);
                 frames = 0;
             }
+
         }
         stop();
     }
@@ -85,29 +90,31 @@ public class Controller implements Runnable
     private void tick()
     {
         model.tick(view.getKeys());
+        if(model.isEndGame()){
+            view.changeGameState(GameState.EndGame);
+        }
     }
 
-    private void render()
+    private void render(GameState gameState)
     {
-        view.render(model.sendInfo());
+        view.render(gameState);
     }
 
-    public boolean isPause() {
-        return pause;
+
+    public LinkedList<ObjectInfo> getObjectsInfo(){
+        return model.sendInfo();
     }
 
-    public void setPause(boolean pause) {
-        this.pause = pause;
+    public void setGameState(GameState gameState)
+    {
+        this.gameState = gameState;
     }
-
-    public boolean isGame() {
-        return game;
+    public void createGame(int numberOfPlayers){
+        model.createGame(numberOfPlayers,1);
     }
-
-    public void setGame(boolean game) {
-        this.game = game;
+    public void exit(){
+        running = false;
     }
-
     public boolean isRunning() {
         return running;
     }
