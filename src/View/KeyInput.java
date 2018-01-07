@@ -1,10 +1,13 @@
 package View;
 
 import Main.GameState;
-import Model.Model;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
+
+import static org.lwjgl.glfw.GLFW.*;
 
 public class KeyInput extends KeyAdapter
 {
@@ -12,13 +15,10 @@ public class KeyInput extends KeyAdapter
     private Menu menu;
     private GameState gameState;
 
-    public boolean[] keyDownP1 = new boolean[5];
-    public boolean[] keyDownP2 = new boolean[5];
-    public boolean[] keyDownP3 = new boolean[5];
-    public boolean[] keyDownP4 = new boolean[5];
-    public boolean Enter;
-    public boolean Escape;
-    public boolean[] menuKeyDown = new boolean[4];
+
+
+    public boolean[][] keyboardKeys = {new boolean[5],new boolean[5],new boolean[5],new boolean[5]};
+    public boolean[][] menuKeyDown = {new boolean[4],new boolean[4],new boolean[4],new boolean[4],new boolean[4]};
 
 
     public KeyInput(View view,GameState gameState, Menu menu)
@@ -26,6 +26,7 @@ public class KeyInput extends KeyAdapter
         this.view = view;
         this.gameState = gameState;
         this.menu = menu;
+        glfwInit();
     }
 
     public void keyPressed(KeyEvent e)
@@ -33,57 +34,33 @@ public class KeyInput extends KeyAdapter
         int key = e.getKeyCode();
         if(gameState == GameState.Game)
         {
-
-            //Player 1 Keys
-            if (key == KeyEvent.VK_W) keyDownP1[0] = true;
-            if (key == KeyEvent.VK_S) keyDownP1[1] = true;
-            if (key == KeyEvent.VK_A) keyDownP1[2] = true;
-            if (key == KeyEvent.VK_D) keyDownP1[3] = true;
-            if (key == KeyEvent.VK_CONTROL) keyDownP1[4] = true;
-
-            //Player 2 Keys
-            if (key == KeyEvent.VK_UP) keyDownP2[0] = true;
-            if (key == KeyEvent.VK_DOWN) keyDownP2[1] = true;
-            if (key == KeyEvent.VK_LEFT) keyDownP2[2] = true;
-            if (key == KeyEvent.VK_RIGHT) keyDownP2[3] = true;
-            if (key == KeyEvent.VK_SPACE) keyDownP2[4] = true;
-
-            //Player 3 Keys
-            if (key == KeyEvent.VK_T) keyDownP3[0] = true;
-            if (key == KeyEvent.VK_G) keyDownP3[1] = true;
-            if (key == KeyEvent.VK_F) keyDownP3[2] = true;
-            if (key == KeyEvent.VK_H) keyDownP3[3] = true;
-            if (key == KeyEvent.VK_V) keyDownP3[4] = true;
-
-            //Player 4 Keys
-            if (key == KeyEvent.VK_I) keyDownP4[0] = true;
-            if (key == KeyEvent.VK_K) keyDownP4[1] = true;
-            if (key == KeyEvent.VK_J) keyDownP4[2] = true;
-            if (key == KeyEvent.VK_L) keyDownP4[3] = true;
-            if (key == KeyEvent.VK_M) keyDownP4[4] = true;
+            playerKeys(key,KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_CONTROL,keyboardKeys[0],true);
+            playerKeys(key,KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_SHIFT,keyboardKeys[1],true);
+            playerKeys(key,KeyEvent.VK_T, KeyEvent.VK_G, KeyEvent.VK_F, KeyEvent.VK_H, KeyEvent.VK_V,keyboardKeys[2],true);
+            playerKeys(key,KeyEvent.VK_I, KeyEvent.VK_K, KeyEvent.VK_J, KeyEvent.VK_L, KeyEvent.VK_M,keyboardKeys[3],true);
 
             if (key == KeyEvent.VK_ESCAPE) menu.changeState(GameState.PauseMenu);
         }
         else
         {
-            if (key == KeyEvent.VK_UP && !menuKeyDown[0])
+            if (key == KeyEvent.VK_UP && !menuKeyDown[5][0])
             {
-                menuKeyDown[0] = true;
+                menuKeyDown[5][0] = true;
                 menu.goUp();
             }
-            if (key == KeyEvent.VK_DOWN && !menuKeyDown[1])
+            if (key == KeyEvent.VK_DOWN && !menuKeyDown[5][1])
             {
-                menuKeyDown[1] = true;
+                menuKeyDown[5][1] = true;
                 menu.goDown();
             }
-            if (key == KeyEvent.VK_ENTER && !menuKeyDown[2])
+            if (key == KeyEvent.VK_ENTER && !menuKeyDown[5][2])
             {
-                menuKeyDown[2] = true;
+                menuKeyDown[5][2] = true;
                 menu.accept();
             }
-            if (key == KeyEvent.VK_ESCAPE && !menuKeyDown[3])
+            if (key == KeyEvent.VK_ESCAPE && !menuKeyDown[5][3])
             {
-                menuKeyDown[3] = true;
+                menuKeyDown[5][3] = true;
                 menu.goBack();
             }
         }
@@ -96,52 +73,40 @@ public class KeyInput extends KeyAdapter
 
         if(gameState == GameState.Game)
         {
-
-            //Player 1 Keys
-            if (key == KeyEvent.VK_W) keyDownP1[0] = false;
-            if (key == KeyEvent.VK_S) keyDownP1[1] = false;
-            if (key == KeyEvent.VK_A) keyDownP1[2] = false;
-            if (key == KeyEvent.VK_D) keyDownP1[3] = false;
-            if (key == KeyEvent.VK_CONTROL) keyDownP1[4] = false;
-
-            //Player 2 Keys
-            if (key == KeyEvent.VK_UP) keyDownP2[0] = false;
-            if (key == KeyEvent.VK_DOWN) keyDownP2[1] = false;
-            if (key == KeyEvent.VK_LEFT) keyDownP2[2] = false;
-            if (key == KeyEvent.VK_RIGHT) keyDownP2[3] = false;
-            if (key == KeyEvent.VK_SPACE) keyDownP2[4] = false;
-
-            //Player 3 Keys
-            if (key == KeyEvent.VK_T) keyDownP3[0] = false;
-            if (key == KeyEvent.VK_G) keyDownP3[1] = false;
-            if (key == KeyEvent.VK_F) keyDownP3[2] = false;
-            if (key == KeyEvent.VK_H) keyDownP3[3] = false;
-            if (key == KeyEvent.VK_V) keyDownP3[4] = false;
-
-            //Player 4 Keys
-            if (key == KeyEvent.VK_I) keyDownP4[0] = false;
-            if (key == KeyEvent.VK_K) keyDownP4[1] = false;
-            if (key == KeyEvent.VK_J) keyDownP4[2] = false;
-            if (key == KeyEvent.VK_L) keyDownP4[3] = false;
-            if (key == KeyEvent.VK_M) keyDownP4[4] = false;
+            playerKeys(key,KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_CONTROL,keyboardKeys[0],false);
+            playerKeys(key,KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_SHIFT,keyboardKeys[1],false);
+            playerKeys(key,KeyEvent.VK_T, KeyEvent.VK_G, KeyEvent.VK_F, KeyEvent.VK_H, KeyEvent.VK_V,keyboardKeys[2],false);
+            playerKeys(key,KeyEvent.VK_I, KeyEvent.VK_K, KeyEvent.VK_J, KeyEvent.VK_L, KeyEvent.VK_M,keyboardKeys[3],false);
         }
         else
         {
-            if (key == KeyEvent.VK_UP && menuKeyDown[0]) menuKeyDown[0] = false;
-            if (key == KeyEvent.VK_DOWN && menuKeyDown[1]) menuKeyDown[1] = false;
-            if (key == KeyEvent.VK_ENTER && menuKeyDown[2]) menuKeyDown[2] = false;
-            if (key == KeyEvent.VK_ESCAPE && menuKeyDown[3]) menuKeyDown[3] = false;
+            if (key == KeyEvent.VK_UP && menuKeyDown[5][0]) menuKeyDown[5][0] = false;
+            if (key == KeyEvent.VK_DOWN && menuKeyDown[5][1]) menuKeyDown[5][1] = false;
+            if (key == KeyEvent.VK_ENTER && menuKeyDown[5][2]) menuKeyDown[5][2] = false;
+            if (key == KeyEvent.VK_ESCAPE && menuKeyDown[5][3]) menuKeyDown[5][3] = false;
         }
     }
 
     public boolean[][] getKeys()
     {
-        boolean[][] KeyDown = {keyDownP1,keyDownP2,keyDownP3,keyDownP4};
+
+        boolean[][] KeyDown = {new boolean[5],new boolean[5],new boolean[5],new boolean[5]};
+        boolean[][] gamepadKeys = {checkGamepadInput(GLFW_JOYSTICK_1),checkGamepadInput(GLFW_JOYSTICK_2),
+                checkGamepadInput(GLFW_JOYSTICK_3),checkGamepadInput(GLFW_JOYSTICK_4)};
+
+        for(int k = 0; k < 4;k++)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                if (gamepadKeys[k][i] || keyboardKeys[k][i])
+                    KeyDown[k][i] = true;
+            }
+        }
         return KeyDown;
     }
 
-    private void playerKeys(KeyEvent key,
-                            KeyEvent k1, KeyEvent k2, KeyEvent k3, KeyEvent k4, KeyEvent k5,
+    private void playerKeys(int key,
+                            int k1, int k2, int k3, int k4, int k5,
                             boolean[] keyDown, boolean value){
         if(key == k1) keyDown[0]=value;
         if(key == k2) keyDown[1]=value;
@@ -157,20 +122,80 @@ public class KeyInput extends KeyAdapter
         }
     }
     public void resetKeys(){
-        for(int i = 0; i < 4; i++){
-            menuKeyDown[i] = false;
+        for(int k = 0; k<5; k++)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                menuKeyDown[k][i] = false;
+            }
         }
-        for(int i = 0; i < 5; i++){
-            keyDownP1[i] = false;
+        for(int k = 0; k < 4; k++)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+            keyboardKeys[k][i] =false;
+            }
         }
-        for(int i = 0; i < 5; i++){
-            keyDownP2[i] = false;
+    }
+    private boolean[] checkGamepadInput(int joystick){
+        boolean [] playerGamepad = new boolean[5];
+
+        if(glfwGetJoystickName(joystick) != null){
+
+            FloatBuffer axes = glfwGetJoystickAxes(joystick);
+            ByteBuffer buttons = glfwGetJoystickButtons(joystick);
+
+            if(gameState == GameState.Game)
+            {
+
+                if (axes.get(0) < -0.5)
+                    playerGamepad[2] = true;
+                else if (axes.get(0) > 0.5)
+                    playerGamepad[3] = true;
+
+
+                if (buttons.get(0) == 1 || buttons.get(4) ==1)
+                    playerGamepad[0] = true;
+
+                if (buttons.get(1) == 1|| buttons.get(5) ==1)
+                    playerGamepad[1] = true;
+
+                if (buttons.get(2) == 1 || axes.get(5) > -0.5)
+                    playerGamepad[4] = true;
+
+
+                if (buttons.get(7) == 1)
+                    menu.changeState(GameState.PauseMenu);
+            }
+            else
+                if(axes.get(1) > 0.5 && !menuKeyDown[joystick][0] ){
+                    menuKeyDown[joystick][0] = true;
+                    menu.goUp();
+                }
+                else if (axes.get(1) < -0.5 && !menuKeyDown[joystick][1]){
+                    menuKeyDown[joystick][1] = true;
+                    menu.goDown();
+                }
+                else if(axes.get(1) < 0.5 && axes.get(1)> -0.5){
+                    menuKeyDown[joystick][0] = false;
+                    menuKeyDown[joystick][1] = false;
+                }
+                if(buttons.get(0) ==1 &&!menuKeyDown[joystick][2]){
+                    menuKeyDown[joystick][2] = true;
+                    menu.accept();
+                }
+                else if (buttons.get(0) ==0 && menuKeyDown[joystick][2]){
+                    menuKeyDown[joystick][2] = false;
+                }
+                if(buttons.get(1) == 1&&!menuKeyDown[joystick][3]){
+                    menuKeyDown[joystick][3] = true;
+                    menu.goBack();
+                }
+                else if (buttons.get(1) ==0 && menuKeyDown[joystick][3]){
+                    menuKeyDown[joystick][3] = false;
+                }
+
         }
-        for(int i = 0; i < 5; i++){
-            keyDownP3[i] = false;
-        }
-        for(int i = 0; i < 5; i++){
-            keyDownP4[i] = false;
-        }
+        return playerGamepad;
     }
 }

@@ -66,19 +66,11 @@ public class Model
         this.players.add(object);
     }
 
-    public void removePlayer(GameObject object)
-    {
-        this.players.remove(object);
-    }
     public void addBrick(int x, int y)
     {
         this.bricks.add(new Brick(x,y));
     }
 
-    public void removeBrick(GameObject object)
-    {
-        this.bricks.remove(object);
-    }
     public void addBullet(GameObject object)
     {
         this.bullets.add(object);

@@ -67,8 +67,9 @@ public class Controller implements Runnable
             lastTime = now;
             while (delta >= 1)
             {
+                boolean[][] keys = view.getKeys();
                 if(gameState == GameState.Game)
-                tick();
+                tick(keys);
                 delta--;
 
                 if (running)
@@ -87,9 +88,9 @@ public class Controller implements Runnable
         stop();
     }
 
-    private void tick()
+    private void tick(boolean[][] keys)
     {
-        model.tick(view.getKeys());
+        model.tick(keys);
         if(model.isEndGame()){
             view.changeGameState(GameState.EndGame);
         }

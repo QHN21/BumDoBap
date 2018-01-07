@@ -39,6 +39,7 @@ class ObjectRenderer {
         g.setColor(color);
         g.fillRect(scale(objectInfo.getX()),scale(objectInfo.getY()),
                 scale(objectInfo.getWidth()),scale(objectInfo.getHeight()));
+
         g.setFont(new Font("Verdana", Font.PLAIN,scale(8)));
         g.drawString(playerName, hudX, hudY);
         g.drawString("Health: " + Integer.toString(objectInfo.getHealthPoints()), hudX, hudY + scale(16));
