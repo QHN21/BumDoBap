@@ -9,6 +9,12 @@ import java.nio.FloatBuffer;
 
 import static org.lwjgl.glfw.GLFW.*;
 
+/**
+ * Rozszerza KeyAdapter
+ * Klasa odpowiada i zarzadza calym inputem
+ * Reaguje na wcisniete klawisze klawiatury oraz kontrolerow
+ * Ich wartosci wpisuje do tablic boolean
+ */
 public class KeyInput extends KeyAdapter
 {
     private View view;
@@ -16,11 +22,23 @@ public class KeyInput extends KeyAdapter
     private GameState gameState;
 
 
-
+    /**
+     * Tablica klawiszy klawiatury odpowiedzialnych za sterowanie
+     */
     public boolean[][] keyboardKeys = {new boolean[5],new boolean[5],new boolean[5],new boolean[5]};
+    /**
+     * Tablica klawiszy odpowiadajacych za sterowanie menu
+     */
     public boolean[][] menuKeyDown = {new boolean[4],new boolean[4],new boolean[4],new boolean[4],new boolean[4]};
 
-
+    /**
+     * Tworzy KeyInput
+     * inicjalizuje srodowisko glfw
+     * odpowiedzialne za input gamepadow
+     * @param view - referencja na view
+     * @param gameState - stan w ktorym znajduje sie gra
+     * @param menu - referencja na menu
+     */
     public KeyInput(View view,GameState gameState, Menu menu)
     {
         this.view = view;
@@ -29,13 +47,17 @@ public class KeyInput extends KeyAdapter
         glfwInit();
     }
 
+    /**
+     * Implementacja metody KeyPressed() z KeyAdaptera
+     * @param e - zdarzenie tworzone przez wcisniety klawisz
+     */
     public void keyPressed(KeyEvent e)
     {
         int key = e.getKeyCode();
         if(gameState == GameState.Game)
         {
             playerKeys(key,KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_CONTROL,keyboardKeys[0],true);
-            playerKeys(key,KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_SHIFT,keyboardKeys[1],true);
+            playerKeys(key,KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_SPACE,keyboardKeys[1],true);
             playerKeys(key,KeyEvent.VK_T, KeyEvent.VK_G, KeyEvent.VK_F, KeyEvent.VK_H, KeyEvent.VK_V,keyboardKeys[2],true);
             playerKeys(key,KeyEvent.VK_I, KeyEvent.VK_K, KeyEvent.VK_J, KeyEvent.VK_L, KeyEvent.VK_M,keyboardKeys[3],true);
 
@@ -66,7 +88,10 @@ public class KeyInput extends KeyAdapter
         }
     }
 
-
+    /**
+     * * Implementacja metody KeyReleased() z KeyAdaptera
+     * @param e - zdarzenie tworzone przez wcisniety klawisz
+     */
     public void keyReleased(KeyEvent e)
     {
         int key = e.getKeyCode();
@@ -87,6 +112,11 @@ public class KeyInput extends KeyAdapter
         }
     }
 
+    /**
+     * Metoda zwraca tablice tablic wartosci boolean
+     * Tablica ta przechowuje tablice wartosci odpowiadajacym klawiszom poszczegolnych graczy
+     * @return - Tablice tablic booleanow
+     */
     public boolean[][] getKeys()
     {
 
@@ -105,6 +135,20 @@ public class KeyInput extends KeyAdapter
         return KeyDown;
     }
 
+    /**
+     * Metoda Wykorzystywana w metodach KeyPressed() oraz KEyReleased()
+     * Przyjmuje wartosc klawisza i spradza czy nie jest ktoryms z klawiszy
+     * odpowiadajacych za sterowanie graczem. Jesli tak zapisuje podana wartosc boolean w miejscu tablicy klawiszy
+     * ktore odpowiada temu klawiszowi
+     * @param key - wcisniety klawisz
+     * @param k1 - klawisz skoku
+     * @param k2 - klawisz kucania
+     * @param k3 - klawisz ruchu w lewo
+     * @param k4 - klawisz ruchu w prawo
+     * @param k5 - klawisz strzalu
+     * @param keyDown - tablica klawiszy dla danego gracza
+     * @param value - wartosc boolean
+     */
     private void playerKeys(int key,
                             int k1, int k2, int k3, int k4, int k5,
                             boolean[] keyDown, boolean value){
@@ -115,12 +159,20 @@ public class KeyInput extends KeyAdapter
         if(key == k5) keyDown[4]=value;
     }
 
+    /**
+     * Ustawia podany w argumencie stan gry
+     * @param gameState - stan gry
+     */
     public void setGameState(GameState gameState){
         this.gameState = gameState;
         if (gameState == GameState.Game){
             resetKeys();
         }
     }
+
+    /**
+     * Resetuje wartosci klawiszy w tablicach wartosci klawiszy
+     */
     public void resetKeys(){
         for(int k = 0; k<5; k++)
         {
@@ -137,6 +189,15 @@ public class KeyInput extends KeyAdapter
             }
         }
     }
+
+    /**
+     * Odpowiada za input gamepadow
+     * Zwraca tablice z wartosciami boolean
+     * true - przycisk wcisniety
+     * false przycisk nie jest wcisniety
+     * @param joystick - numer gamepada
+     * @return tablica wartosci boolean
+     */
     private boolean[] checkGamepadInput(int joystick){
         boolean [] playerGamepad = new boolean[5];
 

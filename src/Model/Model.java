@@ -93,6 +93,7 @@ public class Model
                             tempObject.getId());
             tempObjectInfo.setHealthPoints(tempObject.getHealthPoints());
             tempObjectInfo.setPoints(tempObject.getPoints());
+            tempObjectInfo.setDirection(tempObject.isDirection());
 
             objectsInfo.add(tempObjectInfo);
         }

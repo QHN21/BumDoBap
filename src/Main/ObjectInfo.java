@@ -1,8 +1,12 @@
 package Main;
-
+/**
+ * Ta klasa odpowiedzialna jest za przechowywanie informacji
+ * potrzebnych view do renderowania obiektów.
+ */
 public class ObjectInfo
 {
     private int x, y,width,height,healthPoints,points;
+    private boolean direction;
     private ID id,bulletID;
 
     public ObjectInfo(int x, int y, int width, int height, ID id)
@@ -63,5 +67,15 @@ public class ObjectInfo
     public void setBulletID(ID bulletID)
     {
         this.bulletID = bulletID;
+    }
+
+    public boolean isDirection()
+    {
+        return direction;
+    }
+
+    public void setDirection(boolean direction)
+    {
+        this.direction = direction;
     }
 }

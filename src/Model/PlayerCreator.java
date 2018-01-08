@@ -2,6 +2,9 @@ package Model;
 
 import Main.ID;
 
+/**
+ * Klasa odpowiada za tworzenie graczy
+ */
 public class PlayerCreator {
 
     Model model;
@@ -10,6 +13,12 @@ public class PlayerCreator {
         this.model = model;
 
     }
+
+    /**
+     * Metoda odpowiada za stworzenie odpowiedniej liczby graczy
+     * i dodanie ich do modelu w zaleznosci od liczby podanej w argumencie
+     * @param numberOfPlayers - liczba graczy ktora nalezy stworzyc
+     */
     public void createPlayers(int numberOfPlayers){
         switch(numberOfPlayers){
             case 2:

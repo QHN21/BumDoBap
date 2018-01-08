@@ -4,6 +4,10 @@ import Main.GameState;
 
 import java.awt.*;
 
+/**
+ * Klasa odpowiedzialna za renderowanie menu
+ * Rozszerza klase {@link Renderer}
+ */
 public class MenuRenderer extends Renderer
 {
 
@@ -11,6 +15,13 @@ public class MenuRenderer extends Renderer
         super(size,normalSize,width,height);
     }
 
+    /**
+     * Metoda w zaleznosci od podanego w argumencie stanu i pozycji w menu
+     * renderuje odpowiednia grafike
+     * @param gameState - stan gry
+     * @param position - pozycja
+     * @param g - obiekt Graphics
+     */
     public void render(GameState gameState,int position, Graphics g){
         switch (gameState){
             case Menu:
@@ -30,6 +41,16 @@ public class MenuRenderer extends Renderer
                 break;
         }
     }
+
+    /**
+     * Renderuje odpowiedni obraz menu o podanych jako lancuchy znakow opcjach
+     * @param g - obiekt Graphics
+     * @param position - pozycja w menu
+     * @param title - tytul menu
+     * @param option1 - opcja 1
+     * @param option2 - opcja 2
+     * @param option3 - opcja 3
+     */
     public void renderMenu(Graphics g,int position, String title,String option1,String option2,String option3){
         g.setColor(Color.BLACK);
         g.setFont(new Font("Verdana", Font.PLAIN, scale(40)));
@@ -44,6 +65,12 @@ public class MenuRenderer extends Renderer
         g.setColor(Color.white);
         g.fillRect(width/8,(position+1)*height/4,scale(40),scale(40));
     }
+
+    /**
+     * Renderuje tabele wynikow po skonczonej rozgrywce
+     * @param g - obiekt Graphics
+     * @param playerPoints - tabela punktow graczy
+     */
     public void renderLeaderboard(Graphics g,int[] playerPoints){
         g.setColor(Color.BLACK);
         g.setFont(new Font("Verdana", Font.PLAIN, scale(40)));

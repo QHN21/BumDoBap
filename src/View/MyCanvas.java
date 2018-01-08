@@ -9,6 +9,14 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
 
+/**
+ * Klasa rozszerza Canvas
+ * Odpowiada za wytworzenie "plotna"
+ * na ktorym beda rysowane obiekty
+ * tworzy i zawiera w sobie obiekty
+ * {@link MenuRenderer} i {@link ObjectRenderer}
+ * odpowiedzialne za renderowanie menu i obiektow
+ */
 public class MyCanvas extends Canvas
 {
 
@@ -37,6 +45,12 @@ public class MyCanvas extends Canvas
         this.objectRenderer = new ObjectRenderer(this.size,this.NORMAL_SIZE,this.width,this.height);
     }
 
+    /**
+     * Przygotowuje plotno do rysowania obiektow.
+     * Otrzymuje jako parametr stan gry i w zaleznosci od tego w jakim stanie sie znajduje
+     * wywoluje odpowiednia metode do renderowania.
+     * @param gameState - stan gry
+     */
     public void render(GameState gameState)
     {
        BufferStrategy bs = this.getBufferStrategy();
@@ -59,6 +73,12 @@ public class MyCanvas extends Canvas
         bs.show();
     }
 
+    /**
+     * Zmienia rozmiar plotna
+     * a takze wywoluje metody do zmiany rozmiaru
+     * wyswietlanych obiektow w rendererach
+     * @param size - rozmiar nowych obiektow w pikselach
+     */
     public void resize(int size){
         this.size = size;
         this.width = 52*size;
@@ -67,6 +87,10 @@ public class MyCanvas extends Canvas
         this.objectRenderer.resize(size, width,height);
         this.menuRenderer.resize(size, width, height);
     }
+
+    /**
+     * Zamyka okno
+     */
     public void exit(){
         window.close();
     }

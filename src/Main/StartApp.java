@@ -5,17 +5,17 @@ import Model.Model;
 import View.View;
 
 /**
- * Class: Main.StartApp
- * Creator: Marcin Kuchenbecker
- * Date: 06.11.2017
- * Description:
- * -First class of the project
- * -Includes main()
- * -Creates MVC
+ * Glowna klasa programu odpowiedzialna za stworzenie
+ * obiektow {@link Model} {@link View} i {@link Controller}
+ * @author Marcin Kuchenbecker
  */
 
 
 public class StartApp {
+    /**
+     * main method of the application
+     * @param args
+     */
     public static void main(String[] args) {
         Model model = new Model();
         View view = new View();

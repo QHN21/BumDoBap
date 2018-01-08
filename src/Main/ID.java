@@ -1,5 +1,9 @@
 package Main;
 
+/**
+ * Typ wyliczeniowy przechowuje nazwy
+ * typow obiektow wystepujacych w aplikacji
+ */
 public enum ID
 {
 

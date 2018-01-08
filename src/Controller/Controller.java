@@ -8,15 +8,13 @@ import View.View;
 import java.util.LinkedList;
 
 /**
- * Class: Controller
- * Creator: Marcin Kuchenbecker
- * Date: 06.11.2017
- * Description:
- * -creates Controller
+ * Klasa implementujaca controller w strukturze MVC
+ * odpowiedzialna jest za komunikacje miedzy klasami {@link Model} i {@link View}
  */
 
 public class Controller implements Runnable
 {
+
     private Model model;
     private View view;
 
@@ -26,6 +24,12 @@ public class Controller implements Runnable
 
     GameState gameState;
 
+    /**
+     * Konstruktor zapisuje otrzymane referencje do view i modelu
+     * a takze ustawia poczatkowy stan gry na Menu
+     * @param view - referencja na view
+     * @param model - referencja na model
+     */
     public Controller(View view, Model model)
     {
         this.view = view;
@@ -33,6 +37,10 @@ public class Controller implements Runnable
         gameState = GameState.Menu;
     }
 
+    /**
+     * Tworzy glowny watek aplikacji
+     * i rozpoczyna jego dzialanie
+     */
     public void start()
     {
         thread = new Thread(this);
@@ -40,6 +48,10 @@ public class Controller implements Runnable
         running = true;
     }
 
+    /**
+     * Zatrzymuje glowny watek aplikacji
+     * i konczy jej dzialanie
+     */
     public void stop()
     {
         try
@@ -52,6 +64,13 @@ public class Controller implements Runnable
         }
     }
 
+    /**
+     * Glowna metoda kontrolera zawierajaca w sobie
+     * glowna petle aplikacji
+     * Ma ona za zadanie 60 razy na sekunde wywolywac metode tick()
+     * oraz render().
+     * Dodatkowo wyswietla aktualna liczbe klatek na sekunde
+     */
     public void run()
     {
         long lastTime = System.nanoTime();
@@ -88,6 +107,14 @@ public class Controller implements Runnable
         stop();
     }
 
+    /**
+     * Wywoluje metode tick() w modelu ktorej zadaniem jest zaktualizowanie
+     * wszystkich obiektow. Jako parametry otrzymuje tablice tablic przechowywujacych wartosci bool,
+     * ktore reprezentuja stan klawiszy
+     * true - klawisz zostal wcisniety
+     * false - klawisz nie zostal wcisniety
+     * @param keys - reprezentuje stan klawiszy
+     */
     private void tick(boolean[][] keys)
     {
         model.tick(keys);
@@ -96,34 +123,62 @@ public class Controller implements Runnable
         }
     }
 
+    /**
+     * Wywoluje metode render() w {@link View}
+     * ktorej zadaniem jest wyrenderowac wszysstkie obiekty na ekranie
+     * @param gameState - reprezentuje stan aplikacji
+     */
     private void render(GameState gameState)
     {
         view.render(gameState);
     }
 
-
-    public LinkedList<ObjectInfo> getObjectsInfo(){
-        return model.sendInfo();
+    /**
+     * Wydaje rozkaz do modelu aby stworzyl nowa gre o podanej liczbie graczy
+     * @param numberOfPlayers - liczba graczy
+     */
+    public void createGame(int numberOfPlayers){
+        model.createGame(numberOfPlayers,1);
     }
-    public int[] getLeaderboard(){ return model.getLeaderBoards();}
+
+    /**
+     * Ustawia stan gry na podany w argumencie
+     * @param gameState - stan w jakim znajduje sie gra
+     */
     public void setGameState(GameState gameState)
     {
         this.gameState = gameState;
     }
-    public void createGame(int numberOfPlayers){
-        model.createGame(numberOfPlayers,1);
-    }
-    public void exit(){
-        running = false;
-    }
-    public boolean isRunning() {
-        return running;
-    }
+
+    /**
+     * Pobiera z modelu informacje o czasie trwania gry
+     * i ja zwraca
+     * @return - zwraca czas gry
+     */
     public int getTime(){
         return model.getTime();
     }
-    public void setRunning(boolean running) {
-        this.running = running;
+
+    /**
+     * Pobiera z modelu informacje o wszystkich obiektach i zapisuje je w
+     * liscie obiektow typu {@link ObjectInfo}
+     * @return - zwraca liste obiektow typu {@link ObjectInfo}
+     */
+    public LinkedList<ObjectInfo> getObjectsInfo(){
+        return model.sendInfo();
+    }
+
+    /**
+     * Pobiera z modelu informacje o wnikach graczy
+     * @return - zwraca wyniki graczy w tablicy intow
+     */
+    public int[] getLeaderboard(){ return model.getLeaderBoards();}
+
+    /**
+     * Konczy dzialanie aplikacji
+     */
+    public void exit(){
+        running = false;
     }
 }
 

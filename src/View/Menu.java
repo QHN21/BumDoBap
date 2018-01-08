@@ -4,6 +4,9 @@ import Main.GameState;
 
 import java.awt.*;
 
+/**
+ * Tworzy menu i zajmuje sie jego obsluga
+ */
 public class Menu
 {
     View view;
@@ -19,17 +22,27 @@ public class Menu
         this.position = 0;
     }
 
-
+    /**
+     * Przesuwa menu do gory
+     */
     public void goUp(){
         position--;
         if(position<0)
             position = 2;
     }
+
+    /**
+     * Przesuwa menu w dol
+     */
     public void goDown(){
         position++;
         if(position > 2)
             position = 0;
     }
+
+    /**
+     * Akceptuje wybrana opcje w menu
+     */
     public void accept(){
         switch (this.gameState){
             case Menu:
@@ -53,6 +66,10 @@ public class Menu
         }
         position = 0;
     }
+
+    /**
+     * Wraca sie do poprzedniej opcji w menu
+     */
     public void goBack(){
         switch (this.gameState){
             case Menu:
@@ -72,10 +89,18 @@ public class Menu
         }
         position = 0;
     }
+
+    /**
+     * Zmienia stan gry
+     * @param gameState
+     */
     public void changeState(GameState gameState){
         view.changeGameState(gameState);
     }
 
+    /**
+     * Odpowiada za akcje dostepne w menu glownyn
+     */
     private void menuActions(){
         if(position == 0){
             changeState(GameState.ChoosingNumberOfPlayers);
@@ -88,6 +113,9 @@ public class Menu
         }
     }
 
+    /**
+     * Odpowiada za akcje dostepne w menu wybierania graczy
+     */
     private void choosingNumberOfPlayersActions(){
         if(position == 0){
             numberOfPlayers = 2;
@@ -107,6 +135,9 @@ public class Menu
         }
     }
 
+    /**
+     * Odpowiada za akcje dostepne w menu ustawien
+     */
     private void settingsActions(){
         if(position == 0){
             view.resize(16);
@@ -119,6 +150,9 @@ public class Menu
         }
     }
 
+    /**
+     * Odpowiada za akcje dostepne podczas pauzy w grze
+     */
     private void pauseMenuActions(){
         if(position == 0){
             changeState(GameState.Game);
@@ -131,6 +165,9 @@ public class Menu
         }
     }
 
+    /**
+     * Odpowiada za akcje dostepne w menu ekranu koncowego
+     */
     private void endGameActions(){
         if(position == 0){
             changeState(GameState.Menu);
@@ -143,6 +180,7 @@ public class Menu
             view.exit();
         }
     }
+
     public int getPosition(){
         return position;
     }
