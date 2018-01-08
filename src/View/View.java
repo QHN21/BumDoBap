@@ -57,6 +57,9 @@ public class View
     public void getFinalPoints(){
 
     }
+    public int getTime(){
+        return controller.getTime();
+    }
     public int[] getLeaderBoard(){return controller.getLeaderboard();}
     public LinkedList<ObjectInfo> getObjectsInfo(){
         return controller.getObjectsInfo();

@@ -12,8 +12,9 @@ class ObjectRenderer extends Renderer {
         super(size,normalSize,width,height);
     }
 
-    void renderObjects(LinkedList<ObjectInfo> objectsInfo, Graphics g)
+    void renderObjects(LinkedList<ObjectInfo> objectsInfo, Graphics g,int timer)
     {
+        renderTimer(g,timer);
         for (ObjectInfo tempObjectInfo : objectsInfo) {
             if (tempObjectInfo.getId() == ID.Player1) renderPlayer(tempObjectInfo, g,
                     Color.white, "Player 1", scale(32), scale(32));
@@ -62,6 +63,11 @@ class ObjectRenderer extends Renderer {
         g.setColor(Color.black);
         g.fillRect(scale(objectInfo.getX()),scale(objectInfo.getY()),
                 scale(objectInfo.getWidth()),scale(objectInfo.getHeight()));
+    }
+    private void renderTimer(Graphics g,int timer){
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Verdana", Font.PLAIN,scale(8)));
+        g.drawString("Time left: " +Integer.toString(timer) + "s",width/2-scale(48),scale(32));
     }
 
 }

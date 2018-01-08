@@ -119,7 +119,9 @@ public class Controller implements Runnable
     public boolean isRunning() {
         return running;
     }
-
+    public int getTime(){
+        return model.getTime();
+    }
     public void setRunning(boolean running) {
         this.running = running;
     }

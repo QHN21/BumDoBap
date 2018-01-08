@@ -38,7 +38,7 @@ public class Model
         bullets = new LinkedList<GameObject>();
         playerCreator.createPlayers(numberOfPlayers);
         mapCreator.createMap(mapNumber);
-        timer = 0;
+        timer = 7200;
         endGame = false;
 
     }
@@ -55,8 +55,8 @@ public class Model
             Bullet tempObject = (Bullet)bullets.get(i);
             tempObject.tick();
         }
-        timer++;
-        if(timer >7200){
+        timer--;
+        if(timer < 0){
             endGame = true;
         }
     }
@@ -128,5 +128,8 @@ public class Model
         }
         return playerPoints;
 
+    }
+    public int getTime(){
+        return (int)timer/60;
     }
 }

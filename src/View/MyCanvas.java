@@ -50,7 +50,7 @@ public class MyCanvas extends Canvas
         g.setColor(Color.gray);
         g.fillRect(0, 0, width, height);
         if(gameState == GameState.Game)
-            objectRenderer.renderObjects(view.getObjectsInfo(),g);
+            objectRenderer.renderObjects(view.getObjectsInfo(),g,view.getTime());
         else if(gameState == GameState.Leaderboard)
             menuRenderer.renderLeaderboard(g,view.getLeaderBoard());
         else

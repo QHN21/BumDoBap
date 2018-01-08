@@ -167,6 +167,10 @@ public class KeyInput extends KeyAdapter
                 if (buttons.get(7) == 1)
                     menu.changeState(GameState.PauseMenu);
             }
+            else if(gameState == GameState.Leaderboard) {
+                if (buttons.get(7) == 1)
+                    menu.accept();
+            }
             else
             {
                 if(axes.get(1) > 0.5 && !menuKeyDown[joystick][0] ){
