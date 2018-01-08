@@ -56,7 +56,7 @@ public class Model
             tempObject.tick();
         }
         timer++;
-        if(timer > 3600){
+        if(timer >7200){
             endGame = true;
         }
     }
@@ -118,5 +118,15 @@ public class Model
     }
     public boolean isEndGame(){
         return endGame;
+    }
+    public int[] getLeaderBoards(){
+        int[] playerPoints = new int[players.size()];
+        for(int i =0; i< players.size(); i++)
+        {
+            Player tempPlayer = (Player) players.get(i);
+            playerPoints[i] = tempPlayer.getPoints();
+        }
+        return playerPoints;
+
     }
 }

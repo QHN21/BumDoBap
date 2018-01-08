@@ -25,7 +25,7 @@ public class View
     public View()
     {
         this.menu =new Menu(this);
-        this.myCanvas = new MyCanvas(16,this, menu);
+        this.myCanvas = new MyCanvas(24,this, menu);
         this.keyInput = new KeyInput(this, GameState.Menu,menu);
         myCanvas.addKeyListener(keyInput);
     }
@@ -57,7 +57,7 @@ public class View
     public void getFinalPoints(){
 
     }
-
+    public int[] getLeaderBoard(){return controller.getLeaderboard();}
     public LinkedList<ObjectInfo> getObjectsInfo(){
         return controller.getObjectsInfo();
     }

@@ -43,24 +43,24 @@ public class KeyInput extends KeyAdapter
         }
         else
         {
-            if (key == KeyEvent.VK_UP && !menuKeyDown[5][0])
+            if (key == KeyEvent.VK_UP && !menuKeyDown[4][0])
             {
-                menuKeyDown[5][0] = true;
+                menuKeyDown[4][0] = true;
                 menu.goUp();
             }
-            if (key == KeyEvent.VK_DOWN && !menuKeyDown[5][1])
+            if (key == KeyEvent.VK_DOWN && !menuKeyDown[4][1])
             {
-                menuKeyDown[5][1] = true;
+                menuKeyDown[4][1] = true;
                 menu.goDown();
             }
-            if (key == KeyEvent.VK_ENTER && !menuKeyDown[5][2])
+            if (key == KeyEvent.VK_ENTER && !menuKeyDown[4][2])
             {
-                menuKeyDown[5][2] = true;
+                menuKeyDown[4][2] = true;
                 menu.accept();
             }
-            if (key == KeyEvent.VK_ESCAPE && !menuKeyDown[5][3])
+            if (key == KeyEvent.VK_ESCAPE && !menuKeyDown[4][3])
             {
-                menuKeyDown[5][3] = true;
+                menuKeyDown[4][3] = true;
                 menu.goBack();
             }
         }
@@ -74,16 +74,16 @@ public class KeyInput extends KeyAdapter
         if(gameState == GameState.Game)
         {
             playerKeys(key,KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D, KeyEvent.VK_CONTROL,keyboardKeys[0],false);
-            playerKeys(key,KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_SHIFT,keyboardKeys[1],false);
+            playerKeys(key,KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_SPACE,keyboardKeys[1],false);
             playerKeys(key,KeyEvent.VK_T, KeyEvent.VK_G, KeyEvent.VK_F, KeyEvent.VK_H, KeyEvent.VK_V,keyboardKeys[2],false);
             playerKeys(key,KeyEvent.VK_I, KeyEvent.VK_K, KeyEvent.VK_J, KeyEvent.VK_L, KeyEvent.VK_M,keyboardKeys[3],false);
         }
         else
         {
-            if (key == KeyEvent.VK_UP && menuKeyDown[5][0]) menuKeyDown[5][0] = false;
-            if (key == KeyEvent.VK_DOWN && menuKeyDown[5][1]) menuKeyDown[5][1] = false;
-            if (key == KeyEvent.VK_ENTER && menuKeyDown[5][2]) menuKeyDown[5][2] = false;
-            if (key == KeyEvent.VK_ESCAPE && menuKeyDown[5][3]) menuKeyDown[5][3] = false;
+            if (key == KeyEvent.VK_UP && menuKeyDown[4][0]) menuKeyDown[4][0] = false;
+            if (key == KeyEvent.VK_DOWN && menuKeyDown[4][1]) menuKeyDown[4][1] = false;
+            if (key == KeyEvent.VK_ENTER && menuKeyDown[4][2]) menuKeyDown[4][2] = false;
+            if (key == KeyEvent.VK_ESCAPE && menuKeyDown[4][3]) menuKeyDown[4][3] = false;
         }
     }
 
@@ -168,6 +168,7 @@ public class KeyInput extends KeyAdapter
                     menu.changeState(GameState.PauseMenu);
             }
             else
+            {
                 if(axes.get(1) > 0.5 && !menuKeyDown[joystick][0] ){
                     menuKeyDown[joystick][0] = true;
                     menu.goUp();
@@ -195,6 +196,7 @@ public class KeyInput extends KeyAdapter
                     menuKeyDown[joystick][3] = false;
                 }
 
+            }
         }
         return playerGamepad;
     }

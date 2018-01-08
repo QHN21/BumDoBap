@@ -33,7 +33,7 @@ public class MyCanvas extends Canvas
         this.view =view;
         this.window = new Window(width, height, "BumDoBap", this);
         this.menu = menu;
-        this.menuRenderer = new MenuRenderer(view);
+        this.menuRenderer = new MenuRenderer(this.size,this.NORMAL_SIZE,this.width,this.height);
         this.objectRenderer = new ObjectRenderer(this.size,this.NORMAL_SIZE,this.width,this.height);
     }
 
@@ -51,6 +51,8 @@ public class MyCanvas extends Canvas
         g.fillRect(0, 0, width, height);
         if(gameState == GameState.Game)
             objectRenderer.renderObjects(view.getObjectsInfo(),g);
+        else if(gameState == GameState.Leaderboard)
+            menuRenderer.renderLeaderboard(g,view.getLeaderBoard());
         else
             menuRenderer.render(gameState,menu.getPosition(),g);
         g.dispose();
@@ -63,6 +65,7 @@ public class MyCanvas extends Canvas
         this.height = 29*size;
         this.window.resize(width, height);
         this.objectRenderer.resize(size, width,height);
+        this.menuRenderer.resize(size, width, height);
     }
     public void exit(){
         window.close();

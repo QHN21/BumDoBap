@@ -92,7 +92,7 @@ public class Controller implements Runnable
     {
         model.tick(keys);
         if(model.isEndGame()){
-            view.changeGameState(GameState.EndGame);
+            view.changeGameState(GameState.Leaderboard);
         }
     }
 
@@ -105,7 +105,7 @@ public class Controller implements Runnable
     public LinkedList<ObjectInfo> getObjectsInfo(){
         return model.sendInfo();
     }
-
+    public int[] getLeaderboard(){ return model.getLeaderBoards();}
     public void setGameState(GameState gameState)
     {
         this.gameState = gameState;

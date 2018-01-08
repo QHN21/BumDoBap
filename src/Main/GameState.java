@@ -7,5 +7,6 @@ public enum GameState
     Settings(),
     Game(),
     PauseMenu(),
-    EndGame();
+    EndGame(),
+    Leaderboard();
 }

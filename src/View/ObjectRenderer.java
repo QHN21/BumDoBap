@@ -6,17 +6,10 @@ import Main.ObjectInfo;
 import java.awt.*;
 import java.util.LinkedList;
 
-class ObjectRenderer {
+class ObjectRenderer extends Renderer {
 
-    private int size;
-    private int normalSize;
-    private int height;
-    private int width;
     ObjectRenderer(int size, int normalSize, int width, int height){
-        this.size = size;
-        this.normalSize = normalSize;
-        this.width = width;
-        this.height = height;
+        super(size,normalSize,width,height);
     }
 
     void renderObjects(LinkedList<ObjectInfo> objectsInfo, Graphics g)
@@ -71,13 +64,4 @@ class ObjectRenderer {
                 scale(objectInfo.getWidth()),scale(objectInfo.getHeight()));
     }
 
-    private int scale(int x){
-        return (int)(x * this.size / this.normalSize);
-    }
-
-    public void resize(int size, int width, int height){
-        this.size = size;
-        this.width = width;
-        this.height = height;
-    }
 }

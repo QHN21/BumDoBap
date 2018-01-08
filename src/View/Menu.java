@@ -47,6 +47,9 @@ public class Menu
             case EndGame:
                 endGameActions();
                 break;
+            case Leaderboard:
+                changeState(GameState.EndGame);
+                break;
         }
         position = 0;
     }
