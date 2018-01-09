@@ -75,8 +75,22 @@ public class MenuRenderer extends Renderer
         g.setColor(Color.BLACK);
         g.setFont(new Font("Verdana", Font.PLAIN, scale(40)));
         g.drawString("LeaderBoard",width/4+scale(50),scale(100));
-        for(int i = 0; i < playerPoints.length; i++){
-            g.drawString("Player " + Integer.toString(i+1)+ "    "+ Integer.toString(playerPoints[i]), width/4+scale(50), scale(150)+scale(50)*i);
+        switch (playerPoints.length){
+            case 4:
+                g.setColor(Color.pink);
+                g.drawString("Player " + Integer.toString(3+1)+ "    "+ Integer.toString(playerPoints[3]), width/4+scale(50), scale(150)+scale(50)*3);
+            case 3:
+                g.setColor(Color.yellow);
+                g.drawString("Player " + Integer.toString(2+1)+ "    "+ Integer.toString(playerPoints[2]), width/4+scale(50), scale(150)+scale(50)*2);
+            case 2:
+                g.setColor(Color.green);
+                g.drawString("Player " + Integer.toString(1+1)+ "    "+ Integer.toString(playerPoints[1]), width/4+scale(50), scale(150)+scale(50)*1);
+            default:
+                g.setColor(Color.white);
+                g.drawString("Player " + Integer.toString(0+1)+ "    "+ Integer.toString(playerPoints[0]), width/4+scale(50), scale(150)+scale(50)*0);
         }
+        //for(int i = 0; i < playerPoints.length; i++){
+        //    g.drawString("Player " + Integer.toString(i+1)+ "    "+ Integer.toString(playerPoints[i]), width/4+scale(50), scale(150)+scale(50)*i);
+        //}
     }
 }

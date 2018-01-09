@@ -59,7 +59,6 @@ class ObjectRenderer extends Renderer {
         g.setColor(Color.black);
         g.fillRect(scale(objectInfo.getX()),scale(objectInfo.getY()+objectInfo.getHeight()/2),
                 scale(objectInfo.getWidth()),scale(objectInfo.getHeight()/2));
-        g.setColor(Color.BLACK);
         if(objectInfo.isDirection()){
             g.fillRect(scale(objectInfo.getX()+objectInfo.getWidth()),
                     scale(objectInfo.getY()+objectInfo.getHeight()/4),
@@ -71,6 +70,7 @@ class ObjectRenderer extends Renderer {
                     scale(objectInfo.getY()+objectInfo.getHeight()/4),
                     scale(8),scale(4));
         }
+        g.setColor(color);
         g.setFont(new Font("Verdana", Font.PLAIN,scale(8)));
         g.drawString(playerName, hudX, hudY);
         g.drawString("Health: " + Integer.toString(objectInfo.getHealthPoints()), hudX, hudY + scale(16));

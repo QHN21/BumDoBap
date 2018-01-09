@@ -22,8 +22,10 @@ public class Player extends GameObject{
     private int respawnX;
     private int respawnY;
 
-    private boolean jumping;
     private boolean direction;
+    private boolean respawnDirection;
+
+    private boolean jumping;
     private boolean ducking;
 
     private boolean duckingEnabled;
@@ -36,12 +38,14 @@ public class Player extends GameObject{
      * @param id - identyfikator
      * @param model - referencja na model
      */
-    public Player(int x, int y, ID id, Model model) {
+    public Player(int x, int y,boolean direction, ID id, Model model) {
         super(x, y, Model.SIZE, Model.SIZE*2, id);
         this.velX = 0;
         this.velY = 0;
         this.respawnX = x;
         this.respawnY = y;
+        this.direction = direction;
+        this.respawnDirection = direction;
         this.points = 0;
         this.healthPoints = 3;
         this.gravityTimer =  0;
@@ -263,6 +267,7 @@ public class Player extends GameObject{
     private void respawn(){
         x = respawnX;
         y = respawnY;
+        direction = respawnDirection;
         healthPoints = 3;
         spawnProtectionTimer = 0;
     }
